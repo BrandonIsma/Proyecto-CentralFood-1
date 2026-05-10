@@ -14,7 +14,6 @@ public class cuentaAdministrador {
 
     // =========================
     // CONSTRUCTOR POR DEFECTO
-    // =========================
 
     public cuentaAdministrador() {
 
