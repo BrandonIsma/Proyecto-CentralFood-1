@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class Ubicacion {
+public class ubicacion {
     private int idUbicacion;
     private String direccion;
     private double latitud;
@@ -14,7 +14,7 @@ public class Ubicacion {
     // CONSTRUCTOR POR DEFECTO
     // =========================
 
-    public Ubicacion() {
+    public ubicacion() {
 
     }
 
@@ -22,7 +22,7 @@ public class Ubicacion {
     // CONSTRUCTOR CON PARÁMETROS
     // =========================
 
-    public Ubicacion(int idUbicacion, String direccion,
+    public ubicacion(int idUbicacion, String direccion,
                      double latitud, double longitud,
                      String referenciaTextual) {
 

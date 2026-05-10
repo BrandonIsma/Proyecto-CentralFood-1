@@ -1,18 +1,18 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 import java.util.ArrayList;
-public class puntoReferenciaUniversitaria {
+public class puntoReferenciaUniversitario {
     private int idPuntoReferencia;
     private String nombre;
     private String descripcion;
 
     // Relación uno a muchos
-    private ArrayList<UsuarioFinal> usuarios;
+    private ArrayList<usuarioFinal> usuarios;
 
     // =========================
     // CONSTRUCTOR POR DEFECTO
     // =========================
 
-    public puntoReferenciaUniversitaria() {
+    public puntoReferenciaUniversitario() {
 
         this.usuarios = new ArrayList<>();
     }
@@ -21,7 +21,7 @@ public class puntoReferenciaUniversitaria {
     // CONSTRUCTOR CON PARÁMETROS
     // =========================
 
-    public puntoReferenciaUniversitaria(int idPuntoReferencia,
+    public puntoReferenciaUniversitario(int idPuntoReferencia,
                                         String nombre,
                                         String descripcion) {
 
@@ -60,11 +60,11 @@ public class puntoReferenciaUniversitaria {
         this.descripcion = descripcion;
     }
 
-    public ArrayList<UsuarioFinal> getUsuarios() {
+    public ArrayList<usuarioFinal> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(ArrayList<UsuarioFinal> usuarios) {
+    public void setUsuarios(ArrayList<usuarioFinal> usuarios) {
         this.usuarios = usuarios;
     }
 
