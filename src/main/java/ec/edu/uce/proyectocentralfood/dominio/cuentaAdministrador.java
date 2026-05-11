@@ -6,21 +6,20 @@ public class cuentaAdministrador {
     private String codigoAdministrador;
 
     // Relaciones uno a muchos
-    private ArrayList<Resena> reseñasModeradas;
+    private ArrayList<Resena> resenasModeradas;
     private ArrayList<localComida> locales;
     private ArrayList<plato> platos;
     private ArrayList<categoriaGastronomica> categorias;
-    private ArrayList<puntoReferenciaUniversitaria> puntosReferencia;
+    private ArrayList<puntoReferenciaUniversitario> puntosReferencia;
 
     // =========================
     // CONSTRUCTOR POR DEFECTO
-    // =========================
 
     public cuentaAdministrador() {
 
         super();
 
-        this.reseñasModeradas = new ArrayList<>();
+        this.resenasModeradas = new ArrayList<>();
         this.locales = new ArrayList<>();
         this.platos = new ArrayList<>();
         this.categorias = new ArrayList<>();
@@ -37,7 +36,7 @@ public class cuentaAdministrador {
 
         this.codigoAdministrador = codigoAdministrador;
 
-        this.reseñasModeradas = new ArrayList<>();
+        this.resenasModeradas = new ArrayList<>();
         this.locales = new ArrayList<>();
         this.platos = new ArrayList<>();
         this.categorias = new ArrayList<>();
@@ -56,12 +55,12 @@ public class cuentaAdministrador {
         this.codigoAdministrador = codigoAdministrador;
     }
 
-    public ArrayList<Resena> getReseñasModeradas() {
-        return reseñasModeradas;
+    public ArrayList<Resena> getResenasModeradas() {
+        return resenasModeradas;
     }
 
-    public void setReseñasModeradas(ArrayList<Resena> reseñasModeradas) {
-        this.reseñasModeradas = reseñasModeradas;
+    public void setResenasModeradas(ArrayList<Resena> reseñasModeradas) {
+        this.resenasModeradas = reseñasModeradas;
     }
 
     public ArrayList<localComida> getLocales() {
@@ -88,11 +87,11 @@ public class cuentaAdministrador {
         this.categorias = categorias;
     }
 
-    public ArrayList<puntoReferenciaUniversitaria> getPuntosReferencia() {
+    public ArrayList<puntoReferenciaUniversitario> getPuntosReferencia() {
         return puntosReferencia;
     }
 
-    public void setPuntosReferencia(ArrayList<puntoReferenciaUniversitaria> puntosReferencia) {
+    public void setPuntosReferencia(ArrayList<puntoReferenciaUniversitario> puntosReferencia) {
         this.puntosReferencia = puntosReferencia;
     }
 
@@ -148,7 +147,7 @@ public class cuentaAdministrador {
         System.out.println("Plato eliminado");
     }
 
-    public void moderarReseña() {
+    public void moderarResena() {
         System.out.println("Reseña moderada");
     }
 
@@ -164,7 +163,7 @@ public class cuentaAdministrador {
     public String toString() {
         return "cuentaAdministrador{" +
                 "codigoAdministrador='" + codigoAdministrador + '\'' +
-                ", reseñasModeradas=" + reseñasModeradas +
+                ", reseñasModeradas=" + resenasModeradas +
                 ", locales=" + locales +
                 ", platos=" + platos +
                 ", categorias=" + categorias +

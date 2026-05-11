@@ -1,24 +1,24 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 import java.util.ArrayList;
-public class UsuarioFinal {
+public class usuarioFinal {
     private int telefono;
 
     // Relaciones uno a muchos
-    private ArrayList<Reseña> reseñas;
+    private ArrayList<Resena> resenas;
     private ArrayList<favorito> favoritos;
 
     // Relación uno a uno
-    private puntoReferenciaUniversitaria puntoReferencia;
+    private puntoReferenciaUniversitario puntoReferencia;
 
     // =========================
     // CONSTRUCTOR POR DEFECTO
     // =========================
 
-    public UsuarioFinal() {
+    public usuarioFinal() {
 
         super();
 
-        this.reseñas = new ArrayList<>();
+        this.resenas = new ArrayList<>();
         this.favoritos = new ArrayList<>();
     }
 
@@ -26,13 +26,13 @@ public class UsuarioFinal {
     // CONSTRUCTOR CON PARÁMETROS
     // =========================
 
-    public UsuarioFinal(int telefono) {
+    public usuarioFinal(int telefono) {
 
         super();
 
         this.telefono = telefono;
 
-        this.reseñas = new ArrayList<>();
+        this.resenas = new ArrayList<>();
         this.favoritos = new ArrayList<>();
     }
 
@@ -48,12 +48,12 @@ public class UsuarioFinal {
         this.telefono = telefono;
     }
 
-    public ArrayList<Reseña> getReseñas() {
-        return reseñas;
+    public ArrayList<Resena> getResenas() {
+        return resenas;
     }
 
-    public void setReseñas(ArrayList<Reseña> reseñas) {
-        this.reseñas = reseñas;
+    public void setResenas(ArrayList<Resena> reseñas) {
+        this.resenas = reseñas;
     }
 
     public ArrayList<favorito> getFavoritos() {
@@ -64,11 +64,11 @@ public class UsuarioFinal {
         this.favoritos = favoritos;
     }
 
-    public puntoReferenciaUniversitaria getPuntoReferencia() {
+    public puntoReferenciaUniversitario getPuntoReferencia() {
         return puntoReferencia;
     }
 
-    public void setPuntoReferencia(puntoReferenciaUniversitaria puntoReferencia) {
+    public void setPuntoReferencia(puntoReferenciaUniversitario puntoReferencia) {
         this.puntoReferencia = puntoReferencia;
     }
 
@@ -76,15 +76,15 @@ public class UsuarioFinal {
     // MÉTODOS
     // =========================
 
-    public void crearReseña() {
+    public void crearResena() {
         System.out.println("Reseña creada");
     }
 
-    public void actualizarReseña() {
+    public void actualizarResena() {
         System.out.println("Reseña actualizada");
     }
 
-    public void eliminarReseña() {
+    public void eliminarResena() {
         System.out.println("Reseña eliminada");
     }
 
@@ -108,7 +108,7 @@ public class UsuarioFinal {
     public String toString() {
         return "usuarioFinal{" +
                 "telefono=" + telefono +
-                ", reseñas=" + reseñas +
+                ", reseñas=" + resenas +
                 ", favoritos=" + favoritos +
                 ", puntoReferencia=" + puntoReferencia +
                 '}';

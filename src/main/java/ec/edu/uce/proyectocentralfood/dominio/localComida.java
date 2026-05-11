@@ -7,11 +7,11 @@ public class localComida {
     private String horarioAtencion;
 
     // Relación uno a uno
-    private Ubicacion ubicacion;
+    private ubicacion ubicacion;
 
     // Relaciones uno a muchos
     private ArrayList<plato> platos;
-    private ArrayList<Resena> reseñas;
+    private ArrayList<Resena> resenas;
     private ArrayList<categoriaGastronomica> categorias;
 
     // =========================
@@ -21,7 +21,7 @@ public class localComida {
     public localComida() {
 
         this.platos = new ArrayList<>();
-        this.reseñas = new ArrayList<>();
+        this.resenas = new ArrayList<>();
         this.categorias = new ArrayList<>();
     }
 
@@ -38,7 +38,7 @@ public class localComida {
         this.horarioAtencion = horarioAtencion;
 
         this.platos = new ArrayList<>();
-        this.reseñas = new ArrayList<>();
+        this.resenas = new ArrayList<>();
         this.categorias = new ArrayList<>();
     }
 
@@ -78,11 +78,11 @@ public class localComida {
         this.horarioAtencion = horarioAtencion;
     }
 
-    public Ubicacion getUbicacion() {
+    public ubicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
+    public void setUbicacion(ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -94,12 +94,12 @@ public class localComida {
         this.platos = platos;
     }
 
-    public ArrayList<Reseña> getReseñas() {
-        return reseñas;
+    public ArrayList<Resena> getReseñas() {
+        return resenas;
     }
 
-    public void setReseñas(ArrayList<Reseña> reseñas) {
-        this.reseñas = reseñas;
+    public void setReseñas(ArrayList<Resena> reseñas) {
+        this.resenas = reseñas;
     }
 
     public ArrayList<categoriaGastronomica> getCategorias() {
@@ -139,7 +139,7 @@ public class localComida {
                 ", horarioAtencion='" + horarioAtencion + '\'' +
                 ", ubicacion=" + ubicacion +
                 ", platos=" + platos +
-                ", reseñas=" + reseñas +
+                ", reseñas=" + resenas +
                 ", categorias=" + categorias +
                 '}';
     }
