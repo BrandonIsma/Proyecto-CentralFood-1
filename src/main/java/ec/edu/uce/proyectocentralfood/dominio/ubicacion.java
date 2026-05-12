@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class Ubicacion {
+public class ubicacion {
 
     private int idUbicacion;
     private String direccion;
@@ -8,7 +8,7 @@ public class Ubicacion {
     private double longitud;
     private String referenciaTextual;
 
-    public Ubicacion(int idUbicacion, String direccion, double latitud, double longitud, String referenciaTextual) {
+    public ubicacion(int idUbicacion, String direccion, double latitud, double longitud, String referenciaTextual) {
         this.idUbicacion = idUbicacion;
         this.direccion = direccion;
         this.latitud = latitud;
@@ -44,24 +44,24 @@ public class Ubicacion {
     }
     public void setReferenciaTextual(String referenciaTextual) {
         this.referenciaTextual = referenciaTextual;
-   }
-   public void calcularDistancia (){
-       System.out.println("Calculando distancia desde la ubicación con ID " + idUbicacion);
-       System.out.println("Distancia calculada correctamente.");
-   }
-   public void  validarCoordenadas() {
-       System.out.println("Validando coordenadas para la ubicación con ID " + idUbicacion);
-       System.out.println("Coordenadas validadas correctamente.");
-   }
-   @Override
-   public String toString(){
-         return "Ubicacion{" +
+    }
+    public void calcularDistancia (){
+        System.out.println("Calculando distancia desde la ubicación con ID " + idUbicacion);
+        System.out.println("Distancia calculada correctamente.");
+    }
+    public void  validarCoordenadas() {
+        System.out.println("Validando coordenadas para la ubicación con ID " + idUbicacion);
+        System.out.println("Coordenadas validadas correctamente.");
+    }
+    @Override
+    public String toString(){
+        return "Ubicacion{" +
                 "idUbicacion=" + idUbicacion +
                 ", direccion='" + direccion + '\'' +
                 ", latitud=" + latitud +
                 ", longitud=" + longitud +
                 ", referenciaTextual='" + referenciaTextual + '\'' +
                 '}';
-   }
+    }
 
 }
