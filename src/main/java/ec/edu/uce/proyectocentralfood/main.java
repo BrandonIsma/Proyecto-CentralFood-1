@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class main {
     private static Scanner sc = new Scanner(System.in);
-
+//
     // --- INSTANCIACIÓN DE OBJETOS CON DATOS INICIALES ---
     private static categoriaGastronomica cat = new categoriaGastronomica(1, "Comida Rápida", "Snacks y bebidas", "Express");
     private static cuenta miCuenta = new cuenta(101, "Ariel", "García", "ariel.garcia@uce.edu.ec", new Date());
