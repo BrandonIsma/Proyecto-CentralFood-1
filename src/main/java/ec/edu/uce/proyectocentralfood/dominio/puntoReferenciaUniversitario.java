@@ -1,96 +1,61 @@
 package ec.edu.uce.proyectocentralfood.dominio;
-import java.util.ArrayList;
-public class puntoReferenciaUniversitario {
+
+public class puntoReferenciaUniversitaria {
     private int idPuntoReferencia;
     private String nombre;
     private String descripcion;
 
-    // Relación uno a muchos
-    private ArrayList<usuarioFinal> usuarios;
-
-    // =========================
-    // CONSTRUCTOR POR DEFECTO
-    // =========================
-
-    public puntoReferenciaUniversitario() {
-
-        this.usuarios = new ArrayList<>();
-    }
-
-    // =========================
-    // CONSTRUCTOR CON PARÁMETROS
-    // =========================
-
-    public puntoReferenciaUniversitario(int idPuntoReferencia,
-                                        String nombre,
-                                        String descripcion) {
-
+    public puntoReferenciaUniversitaria(int idPuntoReferencia, String nombre, String descripcion) {
         this.idPuntoReferencia = idPuntoReferencia;
         this.nombre = nombre;
         this.descripcion = descripcion;
-
-        this.usuarios = new ArrayList<>();
     }
-
-    // =========================
-    // GETTERS Y SETTERS
-    // =========================
-
     public int getIdPuntoReferencia() {
         return idPuntoReferencia;
     }
-
     public void setIdPuntoReferencia(int idPuntoReferencia) {
         this.idPuntoReferencia = idPuntoReferencia;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getDescripcion() {
-        return descripcion;
+         return descripcion;
     }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public ArrayList<usuarioFinal> getUsuarios() {
-        return usuarios;
+    public void crearPuntoReferenciaUniversitaria(){
+        System.out.println("Ingrese su punto de referencia"+idPuntoReferencia);
     }
-
-    public void setUsuarios(ArrayList<usuarioFinal> usuarios) {
-        this.usuarios = usuarios;
+    public void consultarPuntoReferenciaUniversitaria(){
+        System.out.println("Consultando punto de referencia universitaria: "+idPuntoReferencia);
+        System.out.println("Nombre: "+nombre);
+        System.out.println("Descripción: "+descripcion);
     }
-
-    // =========================
-    // MÉTODOS
-    // =========================
-
-    public void mostrarPuntoReferencia() {
-        System.out.println("Mostrando punto de referencia");
+    public void actualizarPuntoReferenciaUniversitaria() {
+        System.out.println("Actualizando punto de referencia universitaria: " + idPuntoReferencia);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Descripción: " + descripcion);
+        System.out.println("Punto de referencia universitaria actualizado correctamente.");
     }
-
-    public void actualizarPuntoReferencia() {
-        System.out.println("Punto de referencia actualizado");
+    public void eliminarPuntoReferenciaUniversitaria(){
+        System.out.println("Punto de referencia universitaria con ID " + idPuntoReferencia + " ha sido eliminado.");
+        System.out.println("Punto de referencia universitaria eliminado correctamente.");
     }
-
-    // =========================
-    // TOSTRING
-    // =========================
-
+    public void validarCoordenadas(){
+        System.out.println("Validando coordenadas para el punto de referencia universitaria con ID " + idPuntoReferencia);
+        System.out.println("Coordenadas validadas correctamente.");
+    }
     @Override
     public String toString() {
         return "puntoReferenciaUniversitaria{" +
                 "idPuntoReferencia=" + idPuntoReferencia +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", usuarios=" + usuarios +
                 '}';
     }
 }
