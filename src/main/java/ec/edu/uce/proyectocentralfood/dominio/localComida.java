@@ -1,147 +1,105 @@
 package ec.edu.uce.proyectocentralfood.dominio;
-import java.util.ArrayList;
+
 public class localComida {
-    private int idLocal;
+
+    private int idlocal;
     private String nombre;
     private String descripcion;
+    private String telefono;
     private String horarioAtencion;
+    private String estadolocal;
+    private String precio;
 
-    // Relación uno a uno
-    private ubicacion ubicacion;
-
-    // Relaciones uno a muchos
-    private ArrayList<plato> platos;
-    private ArrayList<Resena> resenas;
-    private ArrayList<categoriaGastronomica> categorias;
-
-    // =========================
-    // CONSTRUCTOR POR DEFECTO
-    // =========================
-
-    public localComida() {
-
-        this.platos = new ArrayList<>();
-        this.resenas = new ArrayList<>();
-        this.categorias = new ArrayList<>();
-    }
-
-    // =========================
-    // CONSTRUCTOR CON PARÁMETROS
-    // =========================
-
-    public localComida(int idLocal, String nombre,
-                       String descripcion, String horarioAtencion) {
-
-        this.idLocal = idLocal;
+    public localComida(int idPersona, String nombre, String descripcion, String telefono, String horarioAtencion, String estadolocal, String precio) {
+        this.idlocal = idPersona;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.telefono = telefono;
         this.horarioAtencion = horarioAtencion;
+        this.estadolocal = estadolocal;
+        this.precio = precio;
 
-        this.platos = new ArrayList<>();
-        this.resenas = new ArrayList<>();
-        this.categorias = new ArrayList<>();
+
     }
-
-    // =========================
-    // GETTERS Y SETTERS
-    // =========================
-
-    public int getIdLocal() {
-        return idLocal;
+    public int getIdlocal() {
+        return idlocal;
     }
-
-    public void setIdLocal(int idLocal) {
-        this.idLocal = idLocal;
+    public void setIdlocal(int idlocal) {
+        this.idlocal = idlocal;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    public String getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
     public String getHorarioAtencion() {
         return horarioAtencion;
     }
-
     public void setHorarioAtencion(String horarioAtencion) {
         this.horarioAtencion = horarioAtencion;
     }
-
-    public ubicacion getUbicacion() {
-        return ubicacion;
+    public String getEstadolocal() {
+        return estadolocal;
     }
-
-    public void setUbicacion(ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setEstadolocal(String estadolocal) {
+        this.estadolocal = estadolocal;
     }
-
-    public ArrayList<plato> getPlatos() {
-        return platos;
+    public String getPrecio() {
+        return precio;
     }
-
-    public void setPlatos(ArrayList<plato> platos) {
-        this.platos = platos;
+    public void setPrecio(String precio) {
+        this.precio = precio;
     }
-
-    public ArrayList<Resena> getReseñas() {
-        return resenas;
+    public void crearlocal() {
+        System.out.println("Ingrese el nombre del local de comida:"+  nombre);
+        System.out.printf("Ingrese la descripción del local de comida:"+descripcion);
+        System.out.printf("Ingrese el teléfono del local de comida:"+telefono);
+        System.out.printf("Ingrese el horario de atención del local de comida:"+horarioAtencion);
+        System.out.println("El local de comida " + nombre + " ha sido creado.");
     }
-
-    public void setReseñas(ArrayList<Resena> reseñas) {
-        this.resenas = reseñas;
+    public void consularlocal() {
+        System.out.println("Ingrese el nombre del local de comida:"+nombre);
     }
-
-    public ArrayList<categoriaGastronomica> getCategorias() {
-        return categorias;
+    public void actualizarlocal() {
+        System.out.println("Actualizar el horario de atencion del local" + horarioAtencion + ".");
+        System.out.println("Actualizar el estado del local de comida " + estadolocal + ".");
+        System.out.println("Actualizar el precio del plato de comida " + precio + ".");
     }
-
-    public void setCategorias(ArrayList<categoriaGastronomica> categorias) {
-        this.categorias = categorias;
+    public void eliminarlocal() {
+        System.out.println("El local de comida " + nombre + " ha sido eliminado.");
     }
-
-    // =========================
-    // MÉTODOS
-    // =========================
-
-    public void mostrarMenu() {
-        System.out.println("Mostrando menú");
+    public void consultarEstadoApertura() {
+        System.out.println("Estado del local");
+        System.out.println("El local de comida " + nombre + " está actualmente " + estadolocal + ".");
     }
-
-    public void mostrarReseñas() {
-        System.out.println("Mostrando reseñas");
+    public void consultarPrecio() {
+        System.out.println("Precio del plato de comida");
+        System.out.println("El precio del plato de comida " + nombre + " es " + precio + ".");
     }
-
-    public void agregarPlato() {
-        System.out.println("Plato agregado");
-    }
-
-    // =========================
-    // TOSTRING
-    // =========================
-
     @Override
     public String toString() {
         return "localComida{" +
-                "idLocal=" + idLocal +
+                "idlocal=" + idlocal +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
+                ", telefono='" + telefono + '\'' +
                 ", horarioAtencion='" + horarioAtencion + '\'' +
-                ", ubicacion=" + ubicacion +
-                ", platos=" + platos +
-                ", reseñas=" + resenas +
-                ", categorias=" + categorias +
+                ", estadolocal='" + estadolocal + '\'' +
+                ", precio='" + precio + '\'' +
                 '}';
     }
-}
 
+}
