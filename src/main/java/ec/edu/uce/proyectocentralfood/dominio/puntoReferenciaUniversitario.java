@@ -1,11 +1,11 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class puntoReferenciaUniversitaria {
+public class puntoReferenciaUniversitario {
     private int idPuntoReferencia;
     private String nombre;
     private String descripcion;
 
-    public puntoReferenciaUniversitaria(int idPuntoReferencia, String nombre, String descripcion) {
+    public puntoReferenciaUniversitario(int idPuntoReferencia, String nombre, String descripcion) {
         this.idPuntoReferencia = idPuntoReferencia;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -23,7 +23,7 @@ public class puntoReferenciaUniversitaria {
         this.nombre = nombre;
     }
     public String getDescripcion() {
-         return descripcion;
+        return descripcion;
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
