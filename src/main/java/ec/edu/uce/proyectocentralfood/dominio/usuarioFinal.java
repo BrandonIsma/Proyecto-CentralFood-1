@@ -1,117 +1,55 @@
 package ec.edu.uce.proyectocentralfood.dominio;
-import java.util.ArrayList;
-public class usuarioFinal {
+
+
+public class UsuarioFinal {
+
     private int telefono;
+    private int idUsuario;
 
-    // Relaciones uno a muchos
-    private ArrayList<Resena> resenas;
-    private ArrayList<favorito> favoritos;
-
-    // Relación uno a uno
-    private puntoReferenciaUniversitario puntoReferencia;
-
-    // =========================
-    // CONSTRUCTOR POR DEFECTO
-    // =========================
-
-    public usuarioFinal() {
-
-        super();
-
-        this.resenas = new ArrayList<>();
-        this.favoritos = new ArrayList<>();
-    }
-
-    // =========================
-    // CONSTRUCTOR CON PARÁMETROS
-    // =========================
-
-    public usuarioFinal(int telefono) {
-
-        super();
+    public UsuarioFinal( int telefono, int idUsuario) {
 
         this.telefono = telefono;
-
-        this.resenas = new ArrayList<>();
-        this.favoritos = new ArrayList<>();
+        this.idUsuario = idUsuario;
     }
-
-    // =========================
-    // GETTERS Y SETTERS
-    // =========================
-
     public int getTelefono() {
         return telefono;
     }
-
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-
-    public ArrayList<Resena> getResenas() {
-        return resenas;
+    public int getIdUsuario() {
+        return idUsuario;
     }
-
-    public void setResenas(ArrayList<Resena> reseñas) {
-        this.resenas = reseñas;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
-
-    public ArrayList<favorito> getFavoritos() {
-        return favoritos;
+    public void crearResena(){
+        System.out.println("Ingrese su reseña: "+idUsuario);
+        System.out.println("Reseña creada correctamente.");
     }
-
-    public void setFavoritos(ArrayList<favorito> favoritos) {
-        this.favoritos = favoritos;
+    public void actualizarResena(){
+        System.out.println("Actualizando reseña del usuario con ID " + idUsuario);
+        System.out.println("Reseña actualizada correctamente.");
     }
-
-    public puntoReferenciaUniversitario getPuntoReferencia() {
-        return puntoReferencia;
+    public void eliminarResena(){
+        System.out.println("Reseña del usuario con ID " + idUsuario + " ha sido eliminada.");
+        System.out.println("Reseña eliminada correctamente.");
     }
-
-    public void setPuntoReferencia(puntoReferenciaUniversitario puntoReferencia) {
-        this.puntoReferencia = puntoReferencia;
+    public void agregarFavorito(){
+        System.out.println("Agregando favorito para el usuario con ID " + idUsuario);
+        System.out.println("Favorito agregado correctamente.");
     }
-
-    // =========================
-    // MÉTODOS
-    // =========================
-
-    public void crearResena() {
-        System.out.println("Reseña creada");
+    public void consultarFavorito(){
+        System.out.println("Consultar favorito para el usuario con ID " + idUsuario);
+        System.out.println("Favorito consultado correctamente.");
     }
-
-    public void actualizarResena() {
-        System.out.println("Reseña actualizada");
+    public void eliminarFavorito(){
+        System.out.println("Eliminando favorito para el usuario con ID " + idUsuario);
+        System.out.println("Favorito eliminado correctamente.");
     }
-
-    public void eliminarResena() {
-        System.out.println("Reseña eliminada");
-    }
-
-    public void agregarFavorito() {
-        System.out.println("Favorito agregado");
-    }
-
-    public void consultarFavoritos() {
-        System.out.println("Consultando favoritos");
-    }
-
-    public void eliminarFavorito() {
-        System.out.println("Favorito eliminado");
-    }
-
-    // =========================
-    // TOSTRING
-    // =========================
-
     @Override
-    public String toString() {
-        return "usuarioFinal{" +
-                "telefono=" + telefono +
-                ", reseñas=" + resenas +
-                ", favoritos=" + favoritos +
-                ", puntoReferencia=" + puntoReferencia +
-                '}';
+    public String toString(){
+        return "Usuario final: " + idUsuario;
     }
-}
 
+}
