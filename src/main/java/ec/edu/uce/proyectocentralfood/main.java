@@ -17,7 +17,8 @@ public class main {
                 "Brandon",
                 "Tacuri",
                 "brandon.tacuri@uce.edu.ec",
-                fechaNacimiento
+                fechaNacimiento,
+                99222222
         );
 
         System.out.println(cuenta);

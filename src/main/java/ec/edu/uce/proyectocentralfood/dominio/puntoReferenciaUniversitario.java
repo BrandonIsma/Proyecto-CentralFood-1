@@ -4,7 +4,8 @@ public class puntoReferenciaUniversitario {
     private int idPuntoReferencia;
     private String nombre;
     private String descripcion;
-
+    public  puntoReferenciaUniversitario() {
+    }
     public puntoReferenciaUniversitario(int idPuntoReferencia, String nombre, String descripcion) {
         this.idPuntoReferencia = idPuntoReferencia;
         this.nombre = nombre;
