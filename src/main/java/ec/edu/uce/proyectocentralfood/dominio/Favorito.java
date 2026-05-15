@@ -1,7 +1,7 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
 public class Favorito {
-    // 1. Atributos privados
+    // 1. Atributos privados//
     private int idFavorito;
     private int idUsuario;
     private int idLocal;
