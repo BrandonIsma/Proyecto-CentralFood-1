@@ -2,7 +2,7 @@ package ec.edu.uce.proyectocentralfood.dominio;
 
 public class CategoriaGastronomica {
 
-    // 1. Atributos privados según el diagrama
+    // 1. Atributos privados
     private int idCategoria;
     private String nombreCategoria;
     private String descripcion;
