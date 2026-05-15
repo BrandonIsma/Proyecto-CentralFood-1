@@ -8,7 +8,7 @@ public class TestCuenta {
 
     public static void main(String[] args) {
 
-        System.out.println("===== PRUEBA DE FUNCIONAMIENTO: CUENTA =====");
+        System.out.println("--- TEST CUENTA ---");
 
         Date fechaNacimiento = new Date();
 
@@ -19,45 +19,65 @@ public class TestCuenta {
                 fechaNacimiento
         );
 
-        System.out.println("\nCuenta registrada:");
-        System.out.println(cuenta);
-
-        if (cuenta != null
-                && cuenta.getIdPersona() == 1
-                && "Brandon".equals(cuenta.getNombre())
-                && "brandon@uce.edu.ec".equals(cuenta.getCorreo())
-                && cuenta.getFechaNacimiento() != null) {
-
-            System.out.println("Resultado: La cuenta fue creada correctamente.");
+        // PRUEBA ID PERSONA
+        System.out.print("Prueba ID persona: ");
+        if (cuenta.getIdPersona() == 1) {
+            System.out.println("PASÓ ✔");
         } else {
-            System.out.println("Resultado: Error al crear la cuenta.");
+            System.out.println("FALLÓ ❌");
         }
 
-        System.out.println("\nActualizando datos de la cuenta...");
-
-        cuenta.setNombre("Brandon Tacuri");
-        cuenta.setCorreo("brandon.tacuri@uce.edu.ec");
-
-        System.out.println("Cuenta actualizada:");
-        System.out.println(cuenta);
-
-        if ("Brandon Tacuri".equals(cuenta.getNombre())
-                && "brandon.tacuri@uce.edu.ec".equals(cuenta.getCorreo())) {
-
-            System.out.println("Resultado: Los datos de la cuenta fueron actualizados correctamente.");
+        // PRUEBA NOMBRE
+        System.out.print("Prueba nombre: ");
+        if ("Brandon".equals(cuenta.getNombre())) {
+            System.out.println("PASÓ ✔");
         } else {
-            System.out.println("Resultado: Error al actualizar los datos de la cuenta.");
+            System.out.println("FALLÓ ❌");
         }
 
-        System.out.println("\nEjecutando acciones de la cuenta...");
+        // PRUEBA CORREO
+        System.out.print("Prueba correo: ");
+        if ("brandon@uce.edu.ec".equals(cuenta.getCorreo())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
 
+        // PRUEBA FECHA NACIMIENTO
+        System.out.print("Prueba fecha nacimiento: ");
+        if (fechaNacimiento.equals(cuenta.getFechaNacimiento())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        // PRUEBA ACTUALIZACIÓN DE DATOS
+        cuenta.setNombre("Ismael");
+        cuenta.setCorreo("ismael@uce.edu.ec");
+
+        System.out.print("Prueba actualización nombre: ");
+        if ("Ismael".equals(cuenta.getNombre())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        System.out.print("Prueba actualización correo: ");
+        if ("555@uce.edu.ec".equals(cuenta.getCorreo())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        // EJECUCIÓN DE MÉTODOS DEL DIAGRAMA
         cuenta.iniciarSesion();
         cuenta.actualizarCredenciales();
         cuenta.consultarPerfil();
         cuenta.cerrarSesion();
 
-        System.out.println("Resultado: Las acciones de la cuenta se ejecutaron sin errores.");
+        System.out.println("\nDATOS DE LA CUENTA:");
+        System.out.println(cuenta);
 
-        System.out.println("\n===== FIN DE LA PRUEBA CUENTA =====");
+        System.out.println("--- FIN TEST CUENTA ---");
     }
 }

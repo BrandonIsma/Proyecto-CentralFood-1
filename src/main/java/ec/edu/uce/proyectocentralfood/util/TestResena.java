@@ -8,7 +8,7 @@ public class TestResena {
 
     public static void main(String[] args) {
 
-        System.out.println("===== PRUEBA DE FUNCIONAMIENTO: RESEÑA =====");
+        System.out.println("--- TEST RESEÑA ---");
 
         Date fechaCreacion = new Date();
 
@@ -19,45 +19,65 @@ public class TestResena {
                 fechaCreacion
         );
 
-        System.out.println("\nReseña registrada:");
-        System.out.println(resena);
-
-        if (resena != null
-                && resena.getIdResena() == 1
-                && resena.getCalificacion() == 5
-                && "Excelente comida y buena atención.".equals(resena.getComentario())
-                && resena.getFechaCreacion() != null) {
-
-            System.out.println("Resultado: La reseña fue creada correctamente.");
+        // PRUEBA ID RESEÑA
+        System.out.print("Prueba ID reseña: ");
+        if (resena.getIdResena() == 1) {
+            System.out.println("PASÓ ✔");
         } else {
-            System.out.println("Resultado: Error al crear la reseña.");
+            System.out.println("FALLÓ ❌");
         }
 
-        System.out.println("\nActualizando datos de la reseña...");
+        // PRUEBA CALIFICACIÓN
+        System.out.print("Prueba calificación: ");
+        if (resena.getCalificacion() == 5) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
 
+        // PRUEBA COMENTARIO
+        System.out.print("Prueba comentario: ");
+        if ("Excelente comida y buena atención.".equals(resena.getComentario())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        // PRUEBA FECHA CREACIÓN
+        System.out.print("Prueba fecha creación: ");
+        if (fechaCreacion.equals(resena.getFechaCreacion())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        // PRUEBA ACTUALIZACIÓN DE DATOS
         resena.setCalificacion(4);
-        resena.setComentario("Buena comida, pero el servicio puede mejorar.");
+        resena.setComentario("Buena comida, pero puede mejorar.");
 
-        System.out.println("Reseña actualizada:");
-        System.out.println(resena);
-
-        if (resena.getCalificacion() == 4
-                && "Buena comida, pero el servicio puede mejorar.".equals(resena.getComentario())) {
-
-            System.out.println("Resultado: Los datos de la reseña fueron actualizados correctamente.");
+        System.out.print("Prueba actualización calificación: ");
+        if (resena.getCalificacion() == 4) {
+            System.out.println("PASÓ ✔");
         } else {
-            System.out.println("Resultado: Error al actualizar los datos de la reseña.");
+            System.out.println("FALLÓ ❌");
         }
 
-        System.out.println("\nEjecutando acciones de la reseña...");
+        System.out.print("Prueba actualización comentario: ");
+        if ("Buena comida, pero puede mejorar.".equals(resena.getComentario())) {
+            System.out.println("PASÓ ✔");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
 
+        // EJECUCIÓN DE MÉTODOS DEL DIAGRAMA
         resena.crearResena();
         resena.consultarResena();
         resena.actualizarResena();
         resena.eliminarResena();
 
-        System.out.println("Resultado: Las acciones de la reseña se ejecutaron sin errores.");
+        System.out.println("\nDATOS DE LA RESEÑA:");
+        System.out.println(resena);
 
-        System.out.println("\n===== FIN DE LA PRUEBA RESEÑA =====");
+        System.out.println("--- FIN TEST RESEÑA ---");
     }
 }
