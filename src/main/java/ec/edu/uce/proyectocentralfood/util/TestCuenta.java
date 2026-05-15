@@ -63,7 +63,7 @@ public class TestCuenta {
         }
 
         System.out.print("Prueba actualización correo: ");
-        if ("555@uce.edu.ec".equals(cuenta.getCorreo())) {
+        if ("ismael@uce.edu.ec".equals(cuenta.getCorreo())) {
             System.out.println("PASÓ ✔");
         } else {
             System.out.println("FALLÓ ❌");
