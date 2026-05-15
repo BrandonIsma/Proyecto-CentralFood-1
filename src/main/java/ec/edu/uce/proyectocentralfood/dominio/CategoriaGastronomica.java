@@ -1,28 +1,26 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
+import ec.edu.uce.proyectocentralfood.util.Validador;
+
 public class CategoriaGastronomica {
 
+    // 1. Atributos privados
     private int idCategoria;
     private String nombreCategoria;
     private String descripcion;
-    private String tipoComida;
 
-    // Constructor vacío
+    // 2. Constructor por defecto
     public CategoriaGastronomica() {
     }
 
-    // Constructor con parámetros
-    public CategoriaGastronomica(int idCategoria,
-                                 String nombreCategoria,
-                                 String descripcion,
-                                 String tipoComida) {
-
+    // 3. Constructor con parámetros
+    public CategoriaGastronomica(int idCategoria, String nombreCategoria, String descripcion) {
         this.idCategoria = idCategoria;
         this.nombreCategoria = nombreCategoria;
         this.descripcion = descripcion;
-        this.tipoComida = tipoComida;
     }
 
+    // 4. Métodos accesores (Getters) y modificadores (Setters)
     public int getIdCategoria() {
         return idCategoria;
     }
@@ -36,7 +34,12 @@ public class CategoriaGastronomica {
     }
 
     public void setNombreCategoria(String nombreCategoria) {
-        this.nombreCategoria = nombreCategoria;
+        // Usamos el validador antes de asignar el valor
+        if (Validador.esTextoValido(nombreCategoria)) {
+            this.nombreCategoria = nombreCategoria;
+        } else {
+            this.nombreCategoria = "Dato Inválido";
+        }
     }
 
     public String getDescripcion() {
@@ -44,34 +47,20 @@ public class CategoriaGastronomica {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        if (Validador.esTextoValido(descripcion)) {
+            this.descripcion = descripcion;
+        } else {
+            this.descripcion = "Descripción Inválida";
+        }
     }
 
-    public String getTipoComida() {
-        return tipoComida;
-    }
-
-    public void setTipoComida(String tipoComida) {
-        this.tipoComida = tipoComida;
-    }
-
-    // Métodos
-
-    public void mostrarCategoria() {
-        System.out.println("Categoría gastronómica: " + nombreCategoria);
-    }
-
-    public void actualizarCategoria() {
-        System.out.println("La categoría ha sido actualizada.");
-    }
-
+    // 5. toString() para representar el objeto como texto
     @Override
     public String toString() {
-        return "CategoriaGastronomica{" +
-                "idCategoria=" + idCategoria +
-                ", nombreCategoria='" + nombreCategoria + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", tipoComida='" + tipoComida + '\'' +
-                '}';
+        return "CategoriaGastronomica [" +
+                "ID: " + idCategoria +
+                " | Nombre: '" + nombreCategoria + '\'' +
+                " | Descripción: '" + descripcion + '\'' +
+                ']';
     }
 }
