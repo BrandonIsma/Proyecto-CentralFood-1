@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class ubicacion {
+public class Ubicacion {
 
     private int idUbicacion;
     private String direccion;
@@ -8,7 +8,7 @@ public class ubicacion {
     private double longitud;
     private String referenciaTextual;
 
-    public ubicacion(int idUbicacion, String direccion, double latitud, double longitud, String referenciaTextual) {
+    public Ubicacion(int idUbicacion, String direccion, double latitud, double longitud, String referenciaTextual) {
         this.idUbicacion = idUbicacion;
         this.direccion = direccion;
         this.latitud = latitud;

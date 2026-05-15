@@ -1,28 +1,16 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.dominio.cuenta;
-
-import java.util.Date;
-
-public class cuentaAdministrador extends cuenta{
+public class CuentaAdministrador {
 
     private String codigoAdministrador;
 
     // CONSTRUCTOR VACÍO
-    public cuentaAdministrador() {
+    public CuentaAdministrador() {
     }
 
     // CONSTRUCTOR CON PARÁMETROS
-    public cuentaAdministrador( int idPersona,
-            String nombre,
-                                String apellido,
-                                String correo,
-                                Date fechaNacimiento,
-    int telefono) {
-
-                        super(idPersona, nombre, apellido, correo, fechaNacimiento, telefono);
+    public CuentaAdministrador(String codigoAdministrador) {
         this.codigoAdministrador = codigoAdministrador;
-
     }
 
     // GETTERS Y SETTERS

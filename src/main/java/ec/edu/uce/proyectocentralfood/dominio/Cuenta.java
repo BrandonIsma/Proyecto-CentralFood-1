@@ -9,17 +9,15 @@ public class cuenta {
     private String apellido;
     private String correo;
     private Date fechaNacimiento;
-    private int telefono;
 
     public cuenta() {
     }
-    public cuenta(int idPersona, String nombre, String apellido, String correo, Date fechaNacimiento, int telefono) {
+    public cuenta(int idPersona, String nombre, String apellido, String correo, Date fechaNacimiento) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
     }
     public int getIdPersona() {
         return idPersona;
@@ -51,12 +49,6 @@ public class cuenta {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
-    public int getTelefono() {
-        return telefono;
-    }
     public void iniciarSesion() {
         System.out.println("La cuenta con correo " + correo + " ha iniciado sesión.");
     }
@@ -73,17 +65,15 @@ public class cuenta {
         System.out.println("Apellido: " + apellido);
         System.out.println("Correo: " + correo);
         System.out.println("Fecha de nacimiento: " + fechaNacimiento);
-        System.out.println("Teléfono: " + telefono);
     }
     @Override
     public String toString() {
-        return "cuenta{" +
+        return "Cuenta{" +
                 "idPersona=" + idPersona +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", correo='" + correo + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
-                ", telefono=" + telefono +
                 '}';
     }
 }

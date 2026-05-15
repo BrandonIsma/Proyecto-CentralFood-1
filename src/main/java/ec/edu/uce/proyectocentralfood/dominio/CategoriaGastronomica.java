@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class categoriaGastronomica {
+public class CategoriaGastronomica {
 
     private int idCategoria;
     private String nombreCategoria;
@@ -8,11 +8,11 @@ public class categoriaGastronomica {
     private String tipoComida;
 
     // Constructor vacío
-    public categoriaGastronomica() {
+    public CategoriaGastronomica() {
     }
 
     // Constructor con parámetros
-    public categoriaGastronomica(int idCategoria,
+    public CategoriaGastronomica(int idCategoria,
                                  String nombreCategoria,
                                  String descripcion,
                                  String tipoComida) {

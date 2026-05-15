@@ -1,27 +1,30 @@
 package ec.edu.uce.proyectocentralfood.dominio;
-import ec.edu.uce.proyectocentralfood.dominio.cuenta;
 
-import java.util.Date;
 
-public class usuarioFinal extends cuenta {
+public class UsuarioFinal {
 
-    private int idUsuario = getIdPersona();
+    private int telefono;
+    private int idUsuario;
 
-    public usuarioFinal() {}
+    public UsuarioFinal(int telefono, int idUsuario) {
 
-    public usuarioFinal( int idPersona,
-                         String nombre,
-                         String apellido,
-                         String correo,
-                         Date fechaNacimiento,
-                         int telefono) {
-
-        super(idPersona, nombre, apellido, correo, fechaNacimiento, telefono);
-
+        this.telefono = telefono;
+        this.idUsuario = idUsuario;
     }
-
+    public int getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
     public void crearResena(){
-        System.out.println("Ingrese su reseña: "+ idUsuario);
+        System.out.println("Ingrese su reseña: "+idUsuario);
         System.out.println("Reseña creada correctamente.");
     }
     public void actualizarResena(){
@@ -44,8 +47,9 @@ public class usuarioFinal extends cuenta {
         System.out.println("Eliminando favorito para el usuario con ID " + idUsuario);
         System.out.println("Favorito eliminado correctamente.");
     }
-        @Override
-    public String toString() {
+    @Override
+    public String toString(){
         return "Usuario final: " + idUsuario;
     }
+
 }

@@ -1,7 +1,7 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class favorito {
+public class Favorito {
     // 1. Atributos según el diagrama de clases
     private String id_favorito;
     private String id_usuario;
@@ -10,9 +10,9 @@ public class favorito {
     private String fecha_actualizacion;
 
     // 2. Constructores
-    public favorito() {}
+    public Favorito() {}
 
-    public favorito(String id_favorito, String id_usuario, String id_local, String fecha_agregado, String fecha_actualizacion) {
+    public Favorito(String id_favorito, String id_usuario, String id_local, String fecha_agregado, String fecha_actualizacion) {
         this.id_favorito = id_favorito;
         this.id_usuario = id_usuario;
         this.id_local = id_local;
