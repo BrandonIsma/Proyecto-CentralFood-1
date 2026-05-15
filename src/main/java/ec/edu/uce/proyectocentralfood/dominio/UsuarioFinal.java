@@ -1,55 +1,34 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-
 public class UsuarioFinal {
-
-    private int telefono;
     private int idUsuario;
+    private String nombre;
 
-    public UsuarioFinal(int telefono, int idUsuario) {
-
-        this.telefono = telefono;
+    // Método Constructor
+    public UsuarioFinal(int idUsuario, String nombre) {
         this.idUsuario = idUsuario;
+        this.nombre = nombre;
     }
-    public int getTelefono() {
-        return telefono;
-    }
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
+
+    // Métodos Get y Set
     public int getIdUsuario() {
         return idUsuario;
     }
+
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    public void crearResena(){
-        System.out.println("Ingrese su reseña: "+idUsuario);
-        System.out.println("Reseña creada correctamente.");
-    }
-    public void actualizarResena(){
-        System.out.println("Actualizando reseña del usuario con ID " + idUsuario);
-        System.out.println("Reseña actualizada correctamente.");
-    }
-    public void eliminarResena(){
-        System.out.println("Reseña del usuario con ID " + idUsuario + " ha sido eliminada.");
-        System.out.println("Reseña eliminada correctamente.");
-    }
-    public void agregarFavorito(){
-        System.out.println("Agregando favorito para el usuario con ID " + idUsuario);
-        System.out.println("Favorito agregado correctamente.");
-    }
-    public void consultarFavorito(){
-        System.out.println("Consultar favorito para el usuario con ID " + idUsuario);
-        System.out.println("Favorito consultado correctamente.");
-    }
-    public void eliminarFavorito(){
-        System.out.println("Eliminando favorito para el usuario con ID " + idUsuario);
-        System.out.println("Favorito eliminado correctamente.");
-    }
-    @Override
-    public String toString(){
-        return "Usuario final: " + idUsuario;
+
+    public String getNombre() {
+        return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    @Override
+    public String toString() {
+        return "UsuarioFinal{" + "idUsuario=" + idUsuario + ", nombre=" + nombre + '}';
+
+    }
 }
