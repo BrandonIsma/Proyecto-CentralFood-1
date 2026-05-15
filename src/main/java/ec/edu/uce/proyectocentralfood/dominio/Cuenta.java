@@ -2,7 +2,7 @@ package ec.edu.uce.proyectocentralfood.dominio;
 
 import java.util.Date;
 
-public class cuenta {
+public class Cuenta {
 
     private int idPersona;
     private String nombre;
@@ -10,9 +10,9 @@ public class cuenta {
     private String correo;
     private Date fechaNacimiento;
 
-    public cuenta() {
+    public Cuenta() {
     }
-    public cuenta(int idPersona, String nombre, String apellido, String correo, Date fechaNacimiento) {
+    public Cuenta(int idPersona, String nombre, String apellido, String correo, Date fechaNacimiento) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;

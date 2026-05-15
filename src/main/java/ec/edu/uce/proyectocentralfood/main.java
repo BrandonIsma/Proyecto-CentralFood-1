@@ -8,15 +8,15 @@ public class main {
     private static Scanner sc = new Scanner(System.in);
 
     // --- INSTANCIACIÓN DE OBJETOS CON DATOS INICIALES ---
-    private static categoriaGastronomica cat = new categoriaGastronomica(1, "Comida Rápida", "Snacks y bebidas", "Express");
-    private static cuenta miCuenta = new cuenta(101, "Ariel", "García", "ariel.garcia@uce.edu.ec", new Date());
-    private static cuentaAdministrador adminPoder = new cuentaAdministrador("ADM-UCE-2026");
-    private static favorito miFav = new favorito("FAV-99", "USR-500", "Facultad de Economía", "12/05/2026", "12/05/2026");
-    private static plato miPlato = new plato("PLT-123", "Encebollado", "Tradicional", 3.50, "Pescado con yuca y cebolla", "12/05/2026");
-    private static puntoReferenciaUniversitario puntoRef = new puntoReferenciaUniversitario(5, "Pileta UCE", "Punto central del campus");
+    private static CategoriaGastronomica cat = new CategoriaGastronomica(1, "Comida Rápida", "Snacks y bebidas", "Express");
+    private static Cuenta miCuenta = new Cuenta(101, "Ariel", "García", "ariel.garcia@uce.edu.ec", new Date());
+    private static CuentaAdministrador adminPoder = new CuentaAdministrador("ADM-UCE-2026");
+    private static Favorito miFav = new Favorito("FAV-99", "USR-500", "Facultad de Economía", "12/05/2026", "12/05/2026");
+    private static Plato miPlato = new Plato("PLT-123", "Encebollado", "Tradicional", 3.50, "Pescado con yuca y cebolla", "12/05/2026");
+    private static PuntoReferenciaUniversitario puntoRef = new PuntoReferenciaUniversitario(5, "Pileta UCE", "Punto central del campus");
     private static Resena miResena = new Resena(1, 5, "Muy buena sazón", new Date(), "Pendiente");
-    private static ubicacion miUbi = new ubicacion(20, "Entrada Gato Soberón", -0.198, -78.502, "Junto al coliseo");
-    private static usuarioFinal userFinal = new usuarioFinal(987654321, 500);
+    private static Ubicacion miUbi = new Ubicacion(20, "Entrada Gato Soberón", -0.198, -78.502, "Junto al coliseo");
+    private static UsuarioFinal userFinal = new UsuarioFinal(987654321, 500);
 
     public static void main(String[] args) {
         int opcion;

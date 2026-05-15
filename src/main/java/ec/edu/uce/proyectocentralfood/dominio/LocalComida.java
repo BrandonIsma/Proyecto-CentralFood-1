@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class localComida {
+public class LocalComida {
 
     private int idlocal;
     private String nombre;
@@ -10,7 +10,7 @@ public class localComida {
     private String estadolocal;
     private String precio;
 
-    public localComida(int idPersona, String nombre, String descripcion, String telefono, String horarioAtencion, String estadolocal, String precio) {
+    public LocalComida(int idPersona, String nombre, String descripcion, String telefono, String horarioAtencion, String estadolocal, String precio) {
         this.idlocal = idPersona;
         this.nombre = nombre;
         this.descripcion = descripcion;

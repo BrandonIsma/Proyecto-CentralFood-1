@@ -3,7 +3,7 @@ package ec.edu.uce.proyectocentralfood.dominio;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class plato {
+public class Plato {
     // 1. Atributos (Corregidos según diagrama de clases)
     private String id_plato;
     private String nombre;
@@ -13,9 +13,9 @@ public class plato {
     private String fecha_actualizacion;
 
     // 2. Constructores
-    public plato() {}
+    public Plato() {}
 
-    public plato(String id_plato, String nombre, String categoria, double precio, String descripcion, String fecha_actualizacion) {
+    public Plato(String id_plato, String nombre, String categoria, double precio, String descripcion, String fecha_actualizacion) {
         this.id_plato = id_plato;
         this.nombre = nombre;
         this.categoria = categoria;
