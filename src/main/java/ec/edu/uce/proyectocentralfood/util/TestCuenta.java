@@ -8,7 +8,7 @@ public class TestCuenta {
 
     public static void main(String[] args) {
 
-        System.out.println("--- INICIANDO PRUEBAS DE CUENTA ---");
+        System.out.println("===== PRUEBA DE FUNCIONAMIENTO: CUENTA =====");
 
         Date fechaNacimiento = new Date();
 
@@ -19,46 +19,45 @@ public class TestCuenta {
                 fechaNacimiento
         );
 
-        System.out.println();
-        System.out.println("Estado inicial: " + cuenta);
+        System.out.println("\nCuenta registrada:");
+        System.out.println(cuenta);
 
-        System.out.println();
-        System.out.println("--- Probando getters ---");
-        System.out.println("ID persona actual: " + cuenta.getIdPersona());
-        System.out.println("Nombre actual: " + cuenta.getNombre());
-        System.out.println("Correo actual: " + cuenta.getCorreo());
-        System.out.println("Fecha de nacimiento actual: " + cuenta.getFechaNacimiento());
+        if (cuenta != null
+                && cuenta.getIdPersona() == 1
+                && "Brandon".equals(cuenta.getNombre())
+                && "brandon@uce.edu.ec".equals(cuenta.getCorreo())
+                && cuenta.getFechaNacimiento() != null) {
 
-        System.out.println();
-        System.out.println("--- Probando setters ---");
-        cuenta.setIdPersona(2);
-        cuenta.setNombre("Ismael");
-        cuenta.setCorreo("ismael@uce.edu.ec");
-        cuenta.setFechaNacimiento(new Date());
+            System.out.println("Resultado: La cuenta fue creada correctamente.");
+        } else {
+            System.out.println("Resultado: Error al crear la cuenta.");
+        }
 
-        System.out.println("ID persona actualizado: " + cuenta.getIdPersona());
-        System.out.println("Nombre actualizado: " + cuenta.getNombre());
-        System.out.println("Correo actualizado: " + cuenta.getCorreo());
-        System.out.println("Fecha de nacimiento actualizada: " + cuenta.getFechaNacimiento());
+        System.out.println("\nActualizando datos de la cuenta...");
 
-        System.out.println();
-        System.out.println("Estado actualizado: " + cuenta);
+        cuenta.setNombre("Brandon Tacuri");
+        cuenta.setCorreo("brandon.tacuri@uce.edu.ec");
 
-        System.out.println();
-        System.out.println("--- Ejecutando acciones de cuenta ---");
+        System.out.println("Cuenta actualizada:");
+        System.out.println(cuenta);
+
+        if ("Brandon Tacuri".equals(cuenta.getNombre())
+                && "brandon.tacuri@uce.edu.ec".equals(cuenta.getCorreo())) {
+
+            System.out.println("Resultado: Los datos de la cuenta fueron actualizados correctamente.");
+        } else {
+            System.out.println("Resultado: Error al actualizar los datos de la cuenta.");
+        }
+
+        System.out.println("\nEjecutando acciones de la cuenta...");
+
         cuenta.iniciarSesion();
-        System.out.println("--- Iniciar sesión ejecutado ---");
-
-        cuenta.cerrarSesion();
-        System.out.println("--- Cerrar sesión ejecutado ---");
-
         cuenta.actualizarCredenciales();
-        System.out.println("--- Actualizar credenciales ejecutado ---");
-
         cuenta.consultarPerfil();
-        System.out.println("--- Consultar perfil ejecutado ---");
+        cuenta.cerrarSesion();
 
-        System.out.println();
-        System.out.println("--- PRUEBAS FINALIZADAS CON ÉXITO ---");
+        System.out.println("Resultado: Las acciones de la cuenta se ejecutaron sin errores.");
+
+        System.out.println("\n===== FIN DE LA PRUEBA CUENTA =====");
     }
 }
