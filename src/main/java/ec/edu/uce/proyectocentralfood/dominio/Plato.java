@@ -1,9 +1,7 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-
 public class Plato {
-    // 1. Atributos
+
     private int idPlato;
     private String nombre;
     private String categoria;
@@ -11,10 +9,9 @@ public class Plato {
     private double precio;
     private int fechaActualizacion;
 
-    // 2. Constructor por defecto
-    public Plato() {}
+    public Plato() {
+    }
 
-    // 3. Constructor con parámetros
     public Plato(int idPlato, String nombre, String categoria, String descripcion, double precio, int fechaActualizacion) {
         this.idPlato = idPlato;
         this.nombre = nombre;
@@ -24,59 +21,63 @@ public class Plato {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    // 4. Métodos Accesores y Modificadores con Validación
-    public int getIdPlato() { return idPlato; }
-    public void setIdPlato(int idPlato) { this.idPlato = idPlato; }
+    public int getIdPlato() {
+        return idPlato;
+    }
 
-    public String getNombre() { return nombre; }
+    public void setIdPlato(int idPlato) {
+        this.idPlato = idPlato;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
     public void setNombre(String nombre) {
-        if (Validador.esTextoValido(nombre)) {
-            this.nombre = nombre;
-        } else {
-            this.nombre = "Nombre Inválido";
-        }
+        this.nombre = nombre;
     }
 
-    public String getCategoria() { return categoria; }
+    public String getCategoria() {
+        return categoria;
+    }
+
     public void setCategoria(String categoria) {
-        if (Validador.esTextoValido(categoria)) {
-            this.categoria = categoria;
-        } else {
-            this.categoria = "Categoría Inválida";
-        }
+        this.categoria = categoria;
     }
 
-    public String getDescripcion() { return descripcion; }
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     public void setDescripcion(String descripcion) {
-        if (Validador.esTextoValido(descripcion)) {
-            this.descripcion = descripcion;
-        } else {
-            this.descripcion = "Descripción Inválida";
-        }
+        this.descripcion = descripcion;
     }
 
-    public double getPrecio() { return precio; }
+    public double getPrecio() {
+        return precio;
+    }
+
     public void setPrecio(double precio) {
-        // Validación lógica: el precio debe ser mayor a 0
-        if (precio > 0) {
-            this.precio = precio;
-        } else {
-            this.precio = 0.0;
-        }
+        this.precio = precio;
     }
 
-    public int getFechaActualizacion() { return fechaActualizacion; }
-    public void setFechaActualizacion(int fechaActualizacion) { this.fechaActualizacion = fechaActualizacion; }
+    public int getFechaActualizacion() {
+        return fechaActualizacion;
+    }
 
-    // 5. toString() para representar el objeto
+    public void setFechaActualizacion(int fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
     @Override
     public String toString() {
-        return "Plato [" +
-                "ID: " + idPlato +
-                " | Nombre: '" + nombre + '\'' +
-                " | Categoría: '" + categoria + '\'' +
-                " | Precio: $" + precio +
-                " | Actualizado: " + fechaActualizacion +
-                ']';
+        return "Plato{" +
+                "idPlato=" + idPlato +
+                ", nombre='" + nombre + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", fechaActualizacion=" + fechaActualizacion +
+                '}';
     }
 }
