@@ -4,14 +4,12 @@ public class PuntoReferenciaUniversitario {
     private String nombre;
     private String descripcion;
 
-    // Método Constructor
 
     public PuntoReferenciaUniversitario(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    // Métodos Get y Set
 
     public String getNombre() {
         return nombre;

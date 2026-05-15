@@ -6,7 +6,6 @@ public class Ubicacion {
     private double longitud;
     private String referenciaTextual;
 
-    // Método Constructor
     public Ubicacion(String direccion, double latitud, double longitud, String referenciaTextual) {
         this.direccion = direccion;
         this.latitud = latitud;
@@ -14,7 +13,6 @@ public class Ubicacion {
         this.referenciaTextual = referenciaTextual;
     }
 
-    // Métodos Get y Set
     public String getDireccion() {
         return direccion;
     }
