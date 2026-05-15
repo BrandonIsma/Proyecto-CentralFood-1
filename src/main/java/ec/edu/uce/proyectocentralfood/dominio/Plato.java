@@ -1,7 +1,7 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
 public class Plato {
-    // 1. Atributos (Según diagrama de clases)
+
     private int idPlato;
     private String nombre;
     private String categoria;
@@ -9,10 +9,9 @@ public class Plato {
     private double precio;
     private int fechaActualizacion;
 
-    // 2. Constructor por defecto
-    public Plato() {}
+    public Plato() {
+    }
 
-    // 3. Constructor con parámetros
     public Plato(int idPlato, String nombre, String categoria, String descripcion, double precio, int fechaActualizacion) {
         this.idPlato = idPlato;
         this.nombre = nombre;
@@ -22,34 +21,63 @@ public class Plato {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    // 4. Métodos Accesores y Modificadores (Getters y Setters) Puros
-    public int getIdPlato() { return idPlato; }
-    public void setIdPlato(int idPlato) { this.idPlato = idPlato; }
+    public int getIdPlato() {
+        return idPlato;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setIdPlato(int idPlato) {
+        this.idPlato = idPlato;
+    }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String get濃esripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public double getPrecio() { return precio; }
-    public void setPrecio(double precio) { this.precio = precio; }
+    public String getCategoria() {
+        return categoria;
+    }
 
-    public int getFechaActualizacion() { return fechaActualizacion; }
-    public void setFechaActualizacion(int fechaActualizacion) { this.fechaActualizacion = fechaActualizacion; }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 
-    // 5. Método toString()
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getFechaActualizacion() {
+        return fechaActualizacion;
+    }
+
+    public void setFechaActualizacion(int fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
     @Override
     public String toString() {
-        return "Plato [" +
-                "ID: " + idPlato +
-                " | Nombre: '" + nombre + '\'' +
-                " | Categoría: '" + categoria + '\'' +
-                " | Precio: $" + precio +
-                " | Fecha: " + fechaActualizacion +
-                ']';
+        return "Plato{" +
+                "idPlato=" + idPlato +
+                ", nombre='" + nombre + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", fechaActualizacion=" + fechaActualizacion +
+                '}';
     }
 }

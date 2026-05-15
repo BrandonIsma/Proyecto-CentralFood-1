@@ -1,10 +1,8 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-
 public class CategoriaGastronomica {
-//
-    // 1. Atributos privados
+
+    // 1. Atributos privados según el diagrama
     private int idCategoria;
     private String nombreCategoria;
     private String descripcion;
@@ -20,7 +18,7 @@ public class CategoriaGastronomica {
         this.descripcion = descripcion;
     }
 
-    // 4. Métodos accesores (Getters) y modificadores (Setters)
+    // 4. Métodos accesores (get) y modificadores (set)
     public int getIdCategoria() {
         return idCategoria;
     }
@@ -34,12 +32,7 @@ public class CategoriaGastronomica {
     }
 
     public void setNombreCategoria(String nombreCategoria) {
-        // Usamos el validador antes de asignar el valor
-        if (Validador.esTextoValido(nombreCategoria)) {
-            this.nombreCategoria = nombreCategoria;
-        } else {
-            this.nombreCategoria = "Dato Inválido";
-        }
+        this.nombreCategoria = nombreCategoria;
     }
 
     public String getDescripcion() {
@@ -47,14 +40,10 @@ public class CategoriaGastronomica {
     }
 
     public void setDescripcion(String descripcion) {
-        if (Validador.esTextoValido(descripcion)) {
-            this.descripcion = descripcion;
-        } else {
-            this.descripcion = "Descripción Inválida";
-        }
+        this.descripcion = descripcion;
     }
 
-    // 5. toString() para representar el objeto como texto
+    // 5. Método toString() para representar el objeto
     @Override
     public String toString() {
         return "CategoriaGastronomica [" +
