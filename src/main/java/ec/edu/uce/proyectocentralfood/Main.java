@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood;
 
-import ec.edu.uce.proyectocentralfood.consola.MenuConsola;
+import ec.edu.uce.proyectocentralfood.interfaz.MenuConsola;
 
 public class Main {
 

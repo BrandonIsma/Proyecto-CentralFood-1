@@ -1,4 +1,4 @@
-package ec.edu.uce.proyectocentralfood.consola;
+package ec.edu.uce.proyectocentralfood.interfaz;
 
 import ec.edu.uce.proyectocentralfood.dominio.*;
 import ec.edu.uce.proyectocentralfood.util.Validador;
