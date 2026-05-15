@@ -8,7 +8,7 @@ public class Favorito {
     private int idLocal;
     private int fechaAgregado;
 
-    // Constructor por defecto
+    // Constructor por defecto//
     public Favorito() {
     }
 
