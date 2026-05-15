@@ -3,7 +3,7 @@ import ec.edu.uce.proyectocentralfood.dominio.CategoriaGastronomica;
 public class TestCategoriaGastronomica {
     public static void main(String[] args) {
         System.out.println("=== INICIANDO TEST DE CATEGORIA GASTRONOMICA ===");
-
+//
         // 1. Instancia mediante constructor con parámetros
         CategoriaGastronomica cat1 = new CategoriaGastronomica(10, "Almuerzos", "Comida completa del dia");
 
