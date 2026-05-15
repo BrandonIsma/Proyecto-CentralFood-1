@@ -3,7 +3,7 @@ package ec.edu.uce.proyectocentralfood.dominio;
 import ec.edu.uce.proyectocentralfood.util.Validador;
 
 public class Plato {
-    // 1. Atributos (Según el diagrama)
+    // 1. Atributos
     private int idPlato;
     private String nombre;
     private String categoria;
