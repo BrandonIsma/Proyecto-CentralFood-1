@@ -1,12 +1,12 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
 
-public class usuarioFinal {
+public class UsuarioFinal {
 
     private int telefono;
     private int idUsuario;
 
-    public usuarioFinal( int telefono, int idUsuario) {
+    public UsuarioFinal(int telefono, int idUsuario) {
 
         this.telefono = telefono;
         this.idUsuario = idUsuario;
