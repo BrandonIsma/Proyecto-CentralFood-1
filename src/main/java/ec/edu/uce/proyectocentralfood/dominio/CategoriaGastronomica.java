@@ -3,7 +3,7 @@ package ec.edu.uce.proyectocentralfood.dominio;
 import ec.edu.uce.proyectocentralfood.util.Validador;
 
 public class CategoriaGastronomica {
-
+//
     // 1. Atributos privados
     private int idCategoria;
     private String nombreCategoria;
