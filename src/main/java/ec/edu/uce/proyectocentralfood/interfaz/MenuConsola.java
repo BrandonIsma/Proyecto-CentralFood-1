@@ -29,7 +29,7 @@ public class MenuConsola {
             System.out.println("1. Gestión de Locales");
             System.out.println("2. Gestión de Categorías Gastronómicas");
             System.out.println("3. Gestión de Facultades");
-            System.out.println("4. Mi Perfil y Usuarios");
+            System.out.println("4. Gestión de Usuarios ");
             System.out.println("0. Salir");
             System.out.println("======================================");
 
@@ -59,8 +59,8 @@ public class MenuConsola {
             System.out.println("1. Crear nuevo local");
             System.out.println("2. Actualizar local");
             System.out.println("3. Eliminar local");
-            System.out.println("4. Consultar locales (Filtros)");
-            System.out.println("5. -> INGRESAR A UN LOCAL ESPECÍFICO (Platos, Reseñas, Ubicación)");
+            System.out.println("4. Consultar locales ");
+            System.out.println("5. INGRESAR A UN LOCAL ESPECÍFICO (Platos, Reseñas, Ubicación)");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -108,7 +108,7 @@ public class MenuConsola {
             System.out.println("1. Crear plato");
             System.out.println("2. Actualizar plato");
             System.out.println("3. Eliminar plato");
-            System.out.println("4. Consultar platos (Filtros)");
+            System.out.println("4. Consultar platos ");
             System.out.println("0. Volver");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -131,7 +131,7 @@ public class MenuConsola {
             System.out.println("1. Crear reseña");
             System.out.println("2. Actualizar reseña");
             System.out.println("3. Eliminar reseña");
-            System.out.println("4. Consultar reseñas (Filtros)");
+            System.out.println("4. Consultar reseñas ");
             System.out.println("0. Volver");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -158,7 +158,7 @@ public class MenuConsola {
             System.out.println("1. Crear categoría");
             System.out.println("2. Actualizar categoría");
             System.out.println("3. Eliminar categoría");
-            System.out.println("4. Consultar categoría (Filtros)");
+            System.out.println("4. Consultar categoría ");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -185,7 +185,7 @@ public class MenuConsola {
             System.out.println("1. Crear facultad");
             System.out.println("2. Actualizar facultad");
             System.out.println("3. Eliminar facultad");
-            System.out.println("4. Consultar facultad (Filtros)");
+            System.out.println("4. Consultar facultad ");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -211,11 +211,11 @@ public class MenuConsola {
             System.out.println("\n===== MI PERFIL / USUARIOS =====");
             System.out.println("1. Crear cuenta base");
             System.out.println("2. Crear usuario final");
-            System.out.println("3. Crear cuenta administrador");
+            System.out.println("3. Crear Centro de Comida");
             System.out.println("4. Actualizar usuario");
             System.out.println("5. Eliminar usuario");
-            System.out.println("6. Consultar usuario (Filtros)");
-            System.out.println("7. -> GESTIONAR MIS FAVORITOS (H5)");
+            System.out.println("6. Consultar usuario ");
+            System.out.println("7. -> GESTIONAR MIS FAVORITOS ");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -241,7 +241,7 @@ public class MenuConsola {
             System.out.println("1. Crear favorito");
             System.out.println("2. Actualizar favorito");
             System.out.println("3. Eliminar favorito");
-            System.out.println("4. Consultar favoritos (Filtros)");
+            System.out.println("4. Consultar favoritos ");
             System.out.println("0. Volver");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -424,7 +424,7 @@ public class MenuConsola {
         System.out.println("\n--- CREAR CUENTA ADMINISTRADOR ---");
         String codigoAdministrador = leerTextoValidado("Ingrese código de administrador (ADM-001): ", "Código inválido. Debe tener formato ADM-001.", Validador::esCodigoAdministradorValido);
 
-        CuentaAdministrador administrador = new CuentaAdministrador(codigoAdministrador);
+        CentroComida administrador = new CentroComida(codigoAdministrador);
         System.out.println("Cuenta administrador creada correctamente:\n" + administrador);
     }
 

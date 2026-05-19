@@ -1,6 +1,6 @@
 package ec.edu.uce.proyectocentralfood.util;
 
-import ec.edu.uce.proyectocentralfood.dominio.CuentaAdministrador;
+import ec.edu.uce.proyectocentralfood.dominio.CentroComida;
 
 public class TestCuentaAdministrador {
 
@@ -8,7 +8,7 @@ public class TestCuentaAdministrador {
 
         System.out.println("--- TEST CUENTA ADMINISTRADOR ---");
 
-        CuentaAdministrador administrador = new CuentaAdministrador(
+        CentroComida administrador = new CentroComida(
                 "ADM-001"
         );
 

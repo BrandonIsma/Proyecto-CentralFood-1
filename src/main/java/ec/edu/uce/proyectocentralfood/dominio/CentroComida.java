@@ -1,16 +1,16 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class CuentaAdministrador {
+public class CentroComida {
 
     // ATRIBUTO
     private String codigoAdministrador;
 
     // CONSTRUCTOR VACÍO
-    public CuentaAdministrador() {
+    public CentroComida() {
     }
 
     // CONSTRUCTOR CON PARÁMETROS
-    public CuentaAdministrador(String codigoAdministrador) {
+    public CentroComida(String codigoAdministrador) {
         this.codigoAdministrador = codigoAdministrador;
     }
 
