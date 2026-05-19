@@ -1,14 +1,12 @@
 package ec.edu.uce.proyectocentralfood.util;
 
-import ec.edu.uce.proyectocentralfood.dominio.PuntoReferenciaUniversitario;
-
-public class TestPuntoReferenciaUniversitario {
+public class TestGestionarFacultad {
 
     public static void main(String[] args) {
 
-        System.out.println("--- TEST PUNTO DE REFERENCIA UNIVERSITARIO ---");
+        System.out.println("--- TEST PUNTO DE Gestionar Facultad ---");
 
-        PuntoReferenciaUniversitario punto = new PuntoReferenciaUniversitario(
+        ec.edu.uce.proyectocentralfood.dominio.GestionarFacultad punto = new ec.edu.uce.proyectocentralfood.dominio.GestionarFacultad(
                 "Facultad de Ingeniería",
                 "Punto de referencia ubicado dentro del campus universitario."
         );

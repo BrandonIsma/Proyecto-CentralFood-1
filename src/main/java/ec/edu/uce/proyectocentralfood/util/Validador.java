@@ -122,16 +122,16 @@ public class Validador {
     }
 
     // =====================================================
-    // PUNTO REFERENCIA UNIVERSITARIO
+    // FACULTAD
     // Atributos:
     // nombre, descripcion
     // =====================================================
 
-    public static boolean esNombrePuntoReferenciaValido(String nombre) {
+    public static boolean esNombreFacultadValido(String nombre) {
         return validar(nombre, REGEX_TEXTO_CON_NUMEROS);
     }
 
-    public static boolean esDescripcionPuntoReferenciaValida(String descripcion) {
+    public static boolean esDescripcionFacultadValida(String descripcion) {
         return validar(descripcion, REGEX_DESCRIPCION);
     }
 

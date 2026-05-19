@@ -1,11 +1,11 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-public class PuntoReferenciaUniversitario {
+public class GestionarFacultad {
     private String nombre;
     private String descripcion;
 
 
-    public PuntoReferenciaUniversitario(String nombre, String descripcion) {
+    public GestionarFacultad(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
