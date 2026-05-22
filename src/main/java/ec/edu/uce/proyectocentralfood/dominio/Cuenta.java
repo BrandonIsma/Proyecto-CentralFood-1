@@ -1,75 +1,86 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
 import java.util.Date;
+import ec.edu.uce.proyectocentralfood.util.Validador;
 
 public class Cuenta {
 
-    private int idPersona;
+    // Atributos (idPersona eliminado por corrección del diagrama)
     private String nombre;
     private String correo;
     private Date fechaNacimiento;
 
+    // Constructor vacío
     public Cuenta() {
     }
 
-    public Cuenta(int idPersona, String nombre, String correo, Date fechaNacimiento) {
-        this.idPersona = idPersona;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.fechaNacimiento = fechaNacimiento;
+    // Constructor con parámetros
+    public Cuenta(String nombre, String correo, Date fechaNacimiento) {
+        setNombre(nombre);
+        setCorreo(correo);
+        setFechaNacimiento(fechaNacimiento);
     }
 
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
-    }
-
+    // Métodos accesores y modificadores booleanos validados
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public boolean setNombre(String nombre) {
+        if (Validador.esNombreValido(nombre)) {
+            this.nombre = nombre;
+            return true;
+        }
+        return false;
     }
 
     public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public boolean setCorreo(String correo) {
+        if (Validador.esCorreoUCEValido(correo)) {
+            this.correo = correo;
+            return true;
+        }
+        return false;
     }
 
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public boolean setFechaNacimiento(Date fechaNacimiento) {
+        if (Validador.esFechaNacimientoValida(fechaNacimiento)) {
+            this.fechaNacimiento = fechaNacimiento;
+            return true;
+        }
+        return false;
     }
 
+    // Métodos originales de la clase (conservados intactos)
     public void iniciarSesion() {
+        // Lógica para iniciar sesión
     }
 
     public void cerrarSesion() {
+        // Lógica para cerrar sesión
     }
 
     public void actualizarCredenciales() {
+        // Lógica para actualizar credenciales
     }
 
     public void consultarPerfil() {
+        // Lógica para consultar perfil
     }
 
     @Override
     public String toString() {
-        return "Cuenta{" +
-                "idPersona=" + idPersona +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
-                '}';
+        return "Cuenta [" +
+                "Nombre: '" + nombre + '\'' +
+                " | Correo: '" + correo + '\'' +
+                " | Fecha de Nacimiento: " + fechaNacimiento +
+                ']';
     }
 }
