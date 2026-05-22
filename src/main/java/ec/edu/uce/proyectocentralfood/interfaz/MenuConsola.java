@@ -5,7 +5,9 @@ import ec.edu.uce.proyectocentralfood.util.Validador;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuConsola {
@@ -13,25 +15,44 @@ public class MenuConsola {
     private final Scanner scanner;
     private final SimpleDateFormat formatoFecha;
 
+    // Almacenamiento en memoria para persistencia real de datos
+    private final List<LocalComida> listaLocales;
+    private final List<UsuarioFinal> listaUsuarios;
+
     public MenuConsola() {
         this.scanner = new Scanner(System.in);
         this.formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         this.formatoFecha.setLenient(false);
+
+        this.listaLocales = new ArrayList<>();
+        this.listaUsuarios = new ArrayList<>();
+
+        // Carga de datos iniciales para pruebas del sistema
+        cargarDatosSimulados();
+    }
+
+    private void cargarDatosSimulados() {
+        LocalComida localPrueba = new LocalComida(1, "Central Burgers", "Hamburguesas universitarias", "0987654321", "08:00-16:00", "ABIERTO", "MEDIO");
+        listaLocales.add(localPrueba);
+        UsuarioFinal usuarioPrueba = new UsuarioFinal(101, "Brandon Tacuri");
+        listaUsuarios.add(usuarioPrueba);
     }
 
     public void iniciar() {
         int opcion;
 
         do {
-            System.out.println("\n======================================");
-            System.out.println("          SISTEMA CENTRALFOOD");
-            System.out.println("======================================");
+            System.out.println("\n=================================================");
+            System.out.println("             SISTEMA CENTRAL FOOD                ");
+            System.out.println("=================================================");
             System.out.println("1. Gestión de Locales");
             System.out.println("2. Gestión de Categorías Gastronómicas");
             System.out.println("3. Gestión de Facultades");
-            System.out.println("4. Gestión de Usuarios ");
+            System.out.println("4. Gestión de Usuarios");
+            System.out.println("5. Gestión de Favoritos");
+            System.out.println("6. Gestión de Reseñas");
             System.out.println("0. Salir");
-            System.out.println("======================================");
+            System.out.println("=================================================");
 
             opcion = leerEntero("Seleccione una opción: ");
 
@@ -40,8 +61,22 @@ public class MenuConsola {
                 case 2: menuGestionarCategoria(); break;
                 case 3: menuGestionarFacultad(); break;
                 case 4: menuGestionarUsuario(); break;
-                case 0: System.out.println("Saliendo del sistema CentralFood..."); break;
-                default: System.out.println("Opción inválida. Intente nuevamente."); break;
+                case 5:
+                    // VALIDACIÓN ELIMINADA: Solo pide el entero y te deja pasar
+                    int idUsuario = leerEnteroPositivo("\nIngrese su ID de Usuario para gestionar sus favoritos: ");
+                    menuGestionarFavoritos(idUsuario);
+                    break;
+                case 6:
+                    // VALIDACIÓN ELIMINADA: Solo pide el entero y te deja pasar
+                    int idLocalResena = leerEnteroPositivo("\nIngrese el ID del Local para gestionar sus reseñas: ");
+                    menuGestionarResenas(idLocalResena);
+                    break;
+                case 0:
+                    System.out.println("\n[✔] Guardando datos... Saliendo del sistema Central Food. ¡Hasta pronto!");
+                    break;
+                default:
+                    System.out.println("[✖] ERROR: Opción inválida. Intente nuevamente.");
+                    break;
             }
         } while (opcion != 0);
 
@@ -49,18 +84,18 @@ public class MenuConsola {
     }
 
     // =====================================================
-    // 1. GESTIÓN DE LOCALES (H3)
+    // 1. GESTIÓN DE LOCALES
     // =====================================================
 
     private void menuGestionarLocales() {
         int opcion;
         do {
             System.out.println("\n===== GESTIÓN DE LOCALES =====");
-            System.out.println("1. Crear nuevo local");
+            System.out.println("1. Crear local");
             System.out.println("2. Actualizar local");
             System.out.println("3. Eliminar local");
-            System.out.println("4. Consultar locales ");
-            System.out.println("5. INGRESAR A UN LOCAL ESPECÍFICO (Platos, Reseñas, Ubicación)");
+            System.out.println("4. Consultar locales");
+            System.out.println("5. Ingresar a un local específico");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -69,113 +104,101 @@ public class MenuConsola {
                 case 1: crearLocal(); break;
                 case 2: actualizarLocal(); break;
                 case 3: eliminarLocal(); break;
-                case 4: menuConsultarLocalesFiltros(); break;
+                case 4: consultarLocales(); break;
                 case 5:
                     int idLocal = leerEnteroPositivo("Ingrese el ID del local al que desea ingresar: ");
-                    menuDetalleLocal(idLocal);
+                    LocalComida localSeleccionado = buscarLocalPorId(idLocal);
+                    if (localSeleccionado != null) {
+                        menuDetalleLocal(localSeleccionado);
+                    } else {
+                        System.out.println("[✖] ERROR: No se encontró ningún local con el ID " + idLocal);
+                    }
                     break;
                 case 0: break;
-                default: System.out.println("Opción inválida."); break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
             }
         } while (opcion != 0);
     }
 
-    private void menuDetalleLocal(int idLocal) {
+    private void menuDetalleLocal(LocalComida local) {
         int opcion;
         do {
-            System.out.println("\n--- GESTIÓN INTERNA DEL LOCAL [" + idLocal + "] ---");
-            System.out.println("1. Gestionar Platos (H4)");
-            System.out.println("2. Gestionar Reseñas (H6)");
-            System.out.println("3. Ver/Registrar Ubicación");
+            System.out.println("\n--- GESTIÓN INTERNA DEL LOCAL [" + local.getNombre() + " - ID: " + local.getIdLocal() + "] ---");
+            System.out.println("1. Gestionar platos");
+            System.out.println("2. Crear reseña");
+            System.out.println("3. Agregar a favoritos");
+            System.out.println("4. Registrar / Ver ubicación");
             System.out.println("0. Volver a Gestión de Locales");
 
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
-                case 1: menuGestionarPlatos(idLocal); break;
-                case 2: menuGestionarResenas(idLocal); break;
-                case 3: crearUbicacion(); break;
+                case 1: menuGestionarPlatos(local); break;
+                case 2: crearResenaContextual(local); break;
+                case 3: crearFavoritoContextual(local); break;
+                case 4: gestionarUbicacionLocal(local); break;
                 case 0: break;
-                default: System.out.println("Opción inválida."); break;
-            }
-        } while (opcion != 0);
-    }
-
-    private void menuGestionarPlatos(int idLocal) {
-        int opcion;
-        do {
-            System.out.println("\n===== PLATOS (Local " + idLocal + ") =====");
-            System.out.println("1. Crear plato");
-            System.out.println("2. Actualizar plato");
-            System.out.println("3. Eliminar plato");
-            System.out.println("4. Consultar platos ");
-            System.out.println("0. Volver");
-
-            opcion = leerEntero("Seleccione una opción: ");
-
-            switch (opcion) {
-                case 1: crearPlato(); break;
-                case 2: actualizarPlato(); break;
-                case 3: eliminarPlato(); break;
-                case 4: menuConsultarPlatosFiltros(); break;
-                case 0: break;
-                default: System.out.println("Opción inválida."); break;
-            }
-        } while (opcion != 0);
-    }
-
-    private void menuGestionarResenas(int idLocal) {
-        int opcion;
-        do {
-            System.out.println("\n===== RESEÑAS (Local " + idLocal + ") =====");
-            System.out.println("1. Crear reseña");
-            System.out.println("2. Actualizar reseña");
-            System.out.println("3. Eliminar reseña");
-            System.out.println("4. Consultar reseñas ");
-            System.out.println("0. Volver");
-
-            opcion = leerEntero("Seleccione una opción: ");
-
-            switch (opcion) {
-                case 1: crearResena(); break;
-                case 2: actualizarResena(); break;
-                case 3: eliminarResena(); break;
-                case 4: menuConsultarResenasFiltros(); break;
-                case 0: break;
-                default: System.out.println("Opción inválida."); break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
             }
         } while (opcion != 0);
     }
 
     // =====================================================
-    // 2. GESTIÓN DE CATEGORÍAS GASTRONÓMICAS (H1)
+    // GESTIÓN DE PLATOS
+    // =====================================================
+
+    private void menuGestionarPlatos(LocalComida local) {
+        int opcion;
+        do {
+            System.out.println("\n===== GESTIÓN DE PLATOS =====");
+            System.out.println("1. Crear plato");
+            System.out.println("2. Actualizar plato");
+            System.out.println("3. Eliminar plato");
+            System.out.println("4. Consultar platos");
+            System.out.println("0. Volver");
+
+            opcion = leerEntero("Seleccione una opción: ");
+
+            switch (opcion) {
+                case 1: crearPlatoContextual(local); break;
+                case 2: actualizarPlatoContextual(local); break;
+                case 3: eliminarPlatoContextual(local); break;
+                case 4: consultarPlatosContextual(local); break;
+                case 0: break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
+            }
+        } while (opcion != 0);
+    }
+
+    // =====================================================
+    // 2. GESTIÓN DE CATEGORÍAS GASTRONÓMICAS
     // =====================================================
 
     private void menuGestionarCategoria() {
         int opcion;
         do {
-            System.out.println("\n===== CATEGORÍAS GASTRONÓMICAS =====");
+            System.out.println("\n===== GESTIÓN DE CATEGORÍAS GASTRONÓMICAS =====");
             System.out.println("1. Crear categoría");
             System.out.println("2. Actualizar categoría");
             System.out.println("3. Eliminar categoría");
-            System.out.println("4. Consultar categoría ");
+            System.out.println("4. Consultar categorías");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
                 case 1: crearCategoria(); break;
-                case 2: actualizarCategoria(); break;
-                case 3: eliminarCategoria(); break;
-                case 4: menuConsultarCategoriaFiltros(); break;
+                case 2: System.out.println("[i] Función de actualización en desarrollo..."); break;
+                case 3: System.out.println("[i] Función de eliminación en desarrollo..."); break;
+                case 4: System.out.println("[i] Consulta de categorías en desarrollo..."); break;
                 case 0: break;
-                default: System.out.println("Opción inválida."); break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
             }
         } while (opcion != 0);
     }
 
     // =====================================================
-    // 3. GESTIÓN DE FACULTADES (H2)
+    // 3. GESTIÓN DE FACULTADES
     // =====================================================
 
     private void menuGestionarFacultad() {
@@ -185,37 +208,36 @@ public class MenuConsola {
             System.out.println("1. Crear facultad");
             System.out.println("2. Actualizar facultad");
             System.out.println("3. Eliminar facultad");
-            System.out.println("4. Consultar facultad ");
+            System.out.println("4. Consultar facultades");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
                 case 1: crearFacultad(); break;
-                case 2: actualizarFacultad(); break;
-                case 3: eliminarFacultad(); break;
-                case 4: menuConsultarFacultadFiltros(); break;
+                case 2: System.out.println("[i] Función de actualización en desarrollo..."); break;
+                case 3: System.out.println("[i] Función de eliminación en desarrollo..."); break;
+                case 4: System.out.println("[i] Consulta de facultades en desarrollo..."); break;
                 case 0: break;
-                default: System.out.println("Opción inválida."); break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
             }
         } while (opcion != 0);
     }
 
     // =====================================================
-    // 4. MI PERFIL Y USUARIOS (H7 y H5)
+    // 4. GESTIÓN DE USUARIOS
     // =====================================================
 
     private void menuGestionarUsuario() {
         int opcion;
         do {
-            System.out.println("\n===== MI PERFIL / USUARIOS =====");
+            System.out.println("\n===== GESTIÓN DE USUARIOS =====");
             System.out.println("1. Crear cuenta base");
             System.out.println("2. Crear usuario final");
             System.out.println("3. Crear Centro de Comida");
             System.out.println("4. Actualizar usuario");
             System.out.println("5. Eliminar usuario");
-            System.out.println("6. Consultar usuario ");
-            System.out.println("7. -> GESTIONAR MIS FAVORITOS ");
+            System.out.println("6. Consultar usuarios");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
@@ -224,421 +246,537 @@ public class MenuConsola {
                 case 1: crearCuenta(); break;
                 case 2: crearUsuarioFinal(); break;
                 case 3: crearCuentaAdministrador(); break;
-                case 4: actualizarUsuario(); break;
-                case 5: eliminarUsuario(); break;
-                case 6: menuConsultarUsuarioFiltros(); break;
-                case 7: menuGestionarFavoritos(); break;
+                case 4: System.out.println("[i] Función de actualización en desarrollo..."); break;
+                case 5: System.out.println("[i] Función de eliminación en desarrollo..."); break;
+                case 6: consultarUsuarios(); break;
                 case 0: break;
-                default: System.out.println("Opción inválida."); break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
             }
         } while (opcion != 0);
     }
 
-    private void menuGestionarFavoritos() {
+    // =====================================================
+    // 5. GESTIÓN DE FAVORITOS (ACCESO LIBRE)
+    // =====================================================
+
+    private void menuGestionarFavoritos(int idUsuario) {
+        // Se busca al usuario. Si no se encuentra, se crea uno "fantasma" para que el menú no explote.
+        UsuarioFinal usuario = buscarUsuarioPorId(idUsuario);
+        if (usuario == null) {
+            usuario = new UsuarioFinal();
+            usuario.setIdPersona(idUsuario);
+        }
+
         int opcion;
         do {
-            System.out.println("\n===== MIS FAVORITOS =====");
-            System.out.println("1. Crear favorito");
-            System.out.println("2. Actualizar favorito");
-            System.out.println("3. Eliminar favorito");
-            System.out.println("4. Consultar favoritos ");
-            System.out.println("0. Volver");
+            System.out.println("\n===== GESTIÓN DE FAVORITOS =====");
+            System.out.println("1. Actualizar favorito");
+            System.out.println("2. Eliminar favorito");
+            System.out.println("3. Consultar favoritos");
+            System.out.println("0. Volver al Menú Principal");
 
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
-                case 1: crearFavorito(); break;
-                case 2: actualizarFavorito(); break;
-                case 3: eliminarFavorito(); break;
-                case 4: menuConsultarFavoritosFiltros(); break;
+                case 1: System.out.println("[i] Función de actualización en desarrollo..."); break;
+                case 2:
+                    if (usuario.getFavoritos() == null || usuario.getFavoritos().isEmpty()) {
+                        System.out.println("[i] No tienes favoritos agregados.");
+                    } else {
+                        int idFav = leerEnteroPositivo("Ingrese el ID del favorito a eliminar: ");
+                        boolean eliminado = usuario.getFavoritos().removeIf(f -> f.getIdFavorito() == idFav);
+                        if (eliminado) System.out.println("[✔] ÉXITO: Favorito eliminado correctamente.");
+                        else System.out.println("[✖] ERROR: No se encontró ese ID de favorito.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("\n--- MIS FAVORITOS ---");
+                    if (usuario.getFavoritos() == null || usuario.getFavoritos().isEmpty()) {
+                        System.out.println("No tienes locales guardados en tus favoritos.");
+                    } else {
+                        for (Favorito f : usuario.getFavoritos()) {
+                            System.out.println(f + " | Fecha formateada: " + convertirIntAFechaString(f.getFechaAgregado()));
+                        }
+                    }
+                    break;
                 case 0: break;
-                default: System.out.println("Opción inválida."); break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
             }
         } while (opcion != 0);
     }
 
     // =====================================================
-    // MÉTODOS DE CREACIÓN REALES
+    // 6. GESTIÓN DE RESEÑAS (ACCESO LIBRE)
     // =====================================================
 
-    // --- LOCALES ---
+    private void menuGestionarResenas(int idLocal) {
+        // Se busca el local. Si no se encuentra, se crea uno temporal para evitar bloqueos.
+        LocalComida local = buscarLocalPorId(idLocal);
+        if (local == null) {
+            local = new LocalComida();
+            local.setIdLocal(idLocal);
+            local.setNombre("Local Desconocido");
+        }
+
+        int opcion;
+        do {
+            System.out.println("\n===== GESTIÓN DE RESEÑAS =====");
+            System.out.println("1. Actualizar reseña");
+            System.out.println("2. Eliminar reseña");
+            System.out.println("3. Consultar reseñas");
+            System.out.println("0. Volver al Menú Principal");
+
+            opcion = leerEntero("Seleccione una opción: ");
+
+            switch (opcion) {
+                case 1:
+                    if (local.getResenas() == null || local.getResenas().isEmpty()) {
+                        System.out.println("[i] El local no tiene reseñas para actualizar.");
+                    } else {
+                        int idRes = leerEnteroPositivo("Ingrese el ID de la reseña a actualizar: ");
+                        Resena resenaAEditar = null;
+                        for (Resena r : local.getResenas()) {
+                            if (r.getIdResena() == idRes) { resenaAEditar = r; break; }
+                        }
+                        if (resenaAEditar != null) {
+                            String nuevoComentario = leerTextoValidado("Ingrese nuevo comentario: ", "Comentario inválido.", "Debe tener entre 5 y 200 caracteres.", Validador::esComentarioResenaValido);
+                            resenaAEditar.setComentario(nuevoComentario);
+                            System.out.println("[✔] ÉXITO: Reseña actualizada correctamente.");
+                        } else {
+                            System.out.println("[✖] ERROR: ID de reseña no encontrado.");
+                        }
+                    }
+                    break;
+                case 2:
+                    if (local.getResenas() == null || local.getResenas().isEmpty()) {
+                        System.out.println("[i] El local no tiene reseñas registradas.");
+                    } else {
+                        int idRes = leerEnteroPositivo("Ingrese el ID de la reseña a eliminar: ");
+                        boolean removido = local.getResenas().removeIf(r -> r.getIdResena() == idRes);
+                        if (removido) System.out.println("[✔] ÉXITO: Reseña eliminada correctamente.");
+                        else System.out.println("[✖] ERROR: ID de reseña no encontrado.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("\n--- RESEÑAS DEL LOCAL [" + local.getNombre() + "] ---");
+                    if (local.getResenas() == null || local.getResenas().isEmpty()) {
+                        System.out.println("Este local aún no cuenta con reseñas de usuarios.");
+                    } else {
+                        for (Resena r : local.getResenas()) {
+                            System.out.println(r);
+                        }
+                    }
+                    break;
+                case 0: break;
+                default: System.out.println("[✖] ERROR: Opción inválida."); break;
+            }
+        } while (opcion != 0);
+    }
+
+    // =====================================================
+    // MÉTODOS DE CREACIÓN Y MODIFICACIÓN REAL DE PLATOS
+    // =====================================================
+
+    private void crearPlatoContextual(LocalComida local) {
+        System.out.println("\n--- CREAR PLATO ---");
+        int idPlato = leerEnteroPositivo("Ingrese ID del plato: ");
+
+        for (Plato p : local.getPlatos()) {
+            if (p.getIdPlato() == idPlato) {
+                System.out.println("[✖] ERROR: Ya existe un plato con ese ID en este local.");
+                return;
+            }
+        }
+
+        String nombre = leerTextoValidado("Ingrese nombre del plato: ", "Nombre inválido.", "Solo letras, números y espacios (mín. 2 caracteres).", Validador::esNombrePlatoValido);
+        String cat = leerTextoValidado("Ingrese categoría del plato: ", "Categoría inválida.", "Solo letras (ej. Almuerzos, Bebidas).", Validador::esCategoriaPlatoValida);
+        String descripcion = leerTextoValidado("Ingrese descripción del plato: ", "Descripción inválida.", "Entre 5 y 200 caracteres.", Validador::esDescripcionPlatoValida);
+        double precio = leerDoublePositivo("Ingrese precio del plato ($): ");
+        int fechaActualizacion = leerFechaComoInt8Digitos("Ingrese fecha de actualización (DD/MM/AAAA): ");
+
+        Plato nuevoPlato = new Plato(idPlato, nombre, cat, descripcion, precio, fechaActualizacion);
+        nuevoPlato.setLocalComida(local);
+
+        local.agregarPlato(nuevoPlato);
+        System.out.println("\n[✔] ÉXITO: Plato creado correctamente y añadido a " + local.getNombre());
+    }
+
+    private void actualizarPlatoContextual(LocalComida local) {
+        System.out.println("\n--- ACTUALIZAR PLATO ---");
+        if (local.getPlatos().isEmpty()) {
+            System.out.println("[i] No hay platos registrados en este local para actualizar.");
+            return;
+        }
+
+        int idPlato = leerEnteroPositivo("Ingrese el ID del plato que desea modificar: ");
+        Plato platoAEditar = null;
+        for (Plato p : local.getPlatos()) {
+            if (p.getIdPlato() == idPlato) { platoAEditar = p; break; }
+        }
+
+        if (platoAEditar != null) {
+            System.out.println("Plato actual encontrado: " + platoAEditar.getNombre());
+            String nuevoNombre = leerTextoValidado("Ingrese nuevo nombre del plato: ", "Nombre inválido.", "Mínimo 2 caracteres.", Validador::esNombrePlatoValido);
+            double nuevoPrecio = leerDoublePositivo("Ingrese nuevo precio ($): ");
+            int nuevaFecha = leerFechaComoInt8Digitos("Ingrese nueva fecha de modificación (DD/MM/AAAA): ");
+
+            platoAEditar.setNombre(nuevoNombre);
+            platoAEditar.setPrecio(nuevoPrecio);
+            platoAEditar.setFechaActualizacion(nuevaFecha);
+
+            System.out.println("\n[✔] ÉXITO: El plato se ha actualizado correctamente en el sistema.");
+        } else {
+            System.out.println("[✖] ERROR: El ID ingresado no corresponde a ningún plato de este restaurante.");
+        }
+    }
+
+    private void eliminarPlatoContextual(LocalComida local) {
+        System.out.println("\n--- ELIMINAR PLATO ---");
+        if (local.getPlatos().isEmpty()) {
+            System.out.println("[i] No hay platos para eliminar.");
+            return;
+        }
+        int idPlato = leerEnteroPositivo("Ingrese el ID del plato a eliminar: ");
+        boolean eliminado = local.getPlatos().removeIf(p -> p.getIdPlato() == idPlato);
+
+        if (eliminado) System.out.println("[✔] ÉXITO: Plato eliminado correctamente de la lista.");
+        else System.out.println("[✖] ERROR: No se encontró ningún plato con ese ID.");
+    }
+
+    private void consultarPlatosContextual(LocalComida local) {
+        System.out.println("\n--- CARTELERA DE PLATOS: " + local.getNombre().toUpperCase() + " ---");
+        if (local.getPlatos().isEmpty()) {
+            System.out.println("Este local de comida aún no tiene platos registrados en su menú.");
+        } else {
+            for (Plato p : local.getPlatos()) {
+                System.out.println(p + " | Última Modificación: " + convertirIntAFechaString(p.getFechaActualizacion()));
+            }
+        }
+    }
+
+    // =====================================================
+    // MÉTODOS DE OPERACIÓN REAL DE LOCALES
+    // =====================================================
+
     private void crearLocal() {
         System.out.println("\n--- CREAR LOCAL DE COMIDA ---");
         int idLocal = leerEnteroPositivo("Ingrese ID del local: ");
-        String nombre = leerTextoValidado("Ingrese nombre del local: ", "Nombre inválido.", Validador::esNombreLocalValido);
-        String descripcion = leerTextoValidado("Ingrese descripción del local: ", "Descripción inválida.", Validador::esDescripcionLocalValida);
-        String telefono = leerTextoValidado("Ingrese teléfono del local: ", "Teléfono inválido. Debe tener formato 09XXXXXXXX.", Validador::esTelefonoValido);
-        String horarioAtencion = leerTextoValidado("Ingrese horario de atención (08:00-17:00): ", "Horario inválido.", Validador::esHorarioAtencionValido);
-        String estadoLocal = leerTextoValidado("Ingrese estado del local (ABIERTO/CERRADO/ACTIVO/INACTIVO): ", "Estado inválido.", Validador::esEstadoLocalValido);
-        String rangoPrecio = leerTextoValidado("Ingrese rango de precio (BAJO/MEDIO/ALTO): ", "Rango de precio inválido.", Validador::esRangoPrecioValido);
 
-        LocalComida local = new LocalComida(idLocal, nombre, descripcion, telefono, horarioAtencion, estadoLocal, rangoPrecio);
-        System.out.println("Local creado correctamente:\n" + local);
+        for (LocalComida l : listaLocales) {
+            if (l.getIdLocal() == idLocal) {
+                System.out.println("[✖] ERROR: Ya existe un local con ese ID."); return;
+            }
+        }
+
+        String nombre = leerTextoValidado("Ingrese nombre del local: ", "Nombre inválido.", "Solo letras y números, mín. 2 caracteres.", Validador::esNombreLocalValido);
+        String descripcion = leerTextoValidado("Ingrese descripción del local: ", "Descripción inválida.", "Entre 5 y 200 caracteres.", Validador::esDescripcionLocalValida);
+        String telefono = leerTextoValidado("Ingrese teléfono del local: ", "Teléfono inválido.", "Debe iniciar con 09 y tener exactamente 10 dígitos.", Validador::esTelefonoValido);
+        String horarioAtencion = leerTextoValidado("Ingrese horario de atención: ", "Formato de horario incorrecto.", "Estructura requerida: HH:MM-HH:MM (ej. 08:00-17:00).", Validador::esHorarioAtencionValido);
+        String estadoLocal = leerTextoValidado("Ingrese estado del local: ", "Estado no reconocido.", "Use una de estas opciones: ABIERTO, CERRADO, ACTIVO, INACTIVO.", Validador::esEstadoLocalValido);
+        String rangoPrecio = leerTextoValidado("Ingrese rango de precio: ", "Rango no reconocido.", "Use una de estas opciones: BAJO, MEDIO, ALTO.", Validador::esRangoPrecioValido);
+
+        LocalComida nuevoLocal = new LocalComida(idLocal, nombre, descripcion, telefono, horarioAtencion, estadoLocal, rangoPrecio);
+        listaLocales.add(nuevoLocal);
+        System.out.println("\n[✔] ÉXITO: Local creado correctamente en el sistema.");
     }
 
     private void actualizarLocal() {
         System.out.println("\n--- ACTUALIZAR LOCAL ---");
-        int idLocal = leerEnteroPositivo("Ingrese ID del local a actualizar: ");
-        System.out.println("Proceda a ingresar los nuevos datos:");
-        crearLocal();
+        if (listaLocales.isEmpty()) {
+            System.out.println("[i] No hay locales registrados para actualizar.");
+            return;
+        }
+
+        int idLocal = leerEnteroPositivo("Ingrese el ID del local a actualizar: ");
+        LocalComida localAEditar = buscarLocalPorId(idLocal);
+
+        if (localAEditar != null) {
+            System.out.println("Local encontrado: " + localAEditar.getNombre());
+            String nuevoNombre = leerTextoValidado("Ingrese nuevo nombre del local: ", "Nombre inválido.", "Solo letras y números.", Validador::esNombreLocalValido);
+            String nuevaDesc = leerTextoValidado("Ingrese nueva descripción: ", "Descripción inválida.", "Entre 5 y 200 caracteres.", Validador::esDescripcionLocalValida);
+
+            localAEditar.setNombre(nuevoNombre);
+            localAEditar.setDescripcion(nuevaDesc);
+            System.out.println("\n[✔] ÉXITO: Local actualizado correctamente en el sistema.");
+        } else {
+            System.out.println("[✖] ERROR: No se encontró ningún local con ese ID.");
+        }
     }
 
     private void eliminarLocal() {
         System.out.println("\n--- ELIMINAR LOCAL ---");
-        int idLocal = leerEnteroPositivo("Ingrese ID del local a eliminar: ");
-        System.out.println("Local eliminado correctamente. ID: " + idLocal);
+        if (listaLocales.isEmpty()) {
+            System.out.println("[i] No hay locales para eliminar.");
+            return;
+        }
+
+        int idLocal = leerEnteroPositivo("Ingrese el ID del local a eliminar: ");
+        boolean eliminado = listaLocales.removeIf(l -> l.getIdLocal() == idLocal);
+
+        if (eliminado) {
+            System.out.println("[✔] ÉXITO: Local eliminado del sistema permanentemente.");
+        } else {
+            System.out.println("[✖] ERROR: No se encontró ningún local con ese ID.");
+        }
     }
 
-    // --- PLATOS ---
-    private void crearPlato() {
-        System.out.println("\n--- CREAR PLATO ---");
-        int idPlato = leerEnteroPositivo("Ingrese ID del plato: ");
-        String nombre = leerTextoValidado("Ingrese nombre del plato: ", "Nombre inválido.", Validador::esNombrePlatoValido);
-        String categoria = leerTextoValidado("Ingrese categoría del plato: ", "Categoría inválida.", Validador::esCategoriaPlatoValida);
-        String descripcion = leerTextoValidado("Ingrese descripción del plato: ", "Descripción inválida.", Validador::esDescripcionPlatoValida);
-        double precio = leerDoublePositivo("Ingrese precio del plato: ");
-        int fechaActualizacion = leerFechaNumerica("Ingrese fecha de actualización (AAAAMMDD): ");
-
-        Plato plato = new Plato(idPlato, nombre, categoria, descripcion, precio, fechaActualizacion);
-        System.out.println("Plato creado correctamente:\n" + plato);
+    private void consultarLocales() {
+        System.out.println("\n--- REGISTRO GENERAL DE LOCALES ---");
+        if (listaLocales.isEmpty()) {
+            System.out.println("No hay locales de comida registrados.");
+        } else {
+            for (LocalComida l : listaLocales) {
+                System.out.println(l);
+            }
+        }
     }
 
-    private void actualizarPlato() {
-        System.out.println("\n--- ACTUALIZAR PLATO ---");
-        int idPlato = leerEnteroPositivo("Ingrese ID del plato a actualizar: ");
-        System.out.println("Proceda a ingresar los nuevos datos:");
-        crearPlato();
-    }
+    // =====================================================
+    // OTROS COMPONENTES GLOBALES DEL SISTEMA
+    // =====================================================
 
-    private void eliminarPlato() {
-        System.out.println("\n--- ELIMINAR PLATO ---");
-        int idPlato = leerEnteroPositivo("Ingrese ID del plato a eliminar: ");
-        System.out.println("Plato eliminado correctamente. ID: " + idPlato);
-    }
-
-    // --- RESEÑAS ---
-    private void crearResena() {
+    private void crearResenaContextual(LocalComida local) {
         System.out.println("\n--- CREAR RESEÑA ---");
-        int idResena = leerEnteroPositivo("Ingrese ID de reseña: ");
+        int idResena = leerEnteroPositivo("Ingrese un ID único para su reseña: ");
         int calificacion;
         do {
-            calificacion = leerEntero("Ingrese calificación (1 a 5): ");
+            calificacion = leerEntero("Ingrese calificación (1 a 5 estrellas): ");
             if (!Validador.esCalificacionValida(calificacion)) {
-                System.out.println("Calificación inválida. Debe estar entre 1 y 5.");
+                System.out.println("[✖] ERROR: La calificación debe estar estrictamente entre 1 y 5.");
             }
         } while (!Validador.esCalificacionValida(calificacion));
-        String comentario = leerTextoValidado("Ingrese comentario: ", "Comentario inválido.", Validador::esComentarioResenaValido);
+
+        String comentario = leerTextoValidado("Ingrese su comentario: ", "Comentario muy corto o con caracteres no permitidos.", "Debe tener entre 5 y 200 caracteres.", Validador::esComentarioResenaValido);
         Date fechaCreacion = new Date();
 
         Resena resena = new Resena(idResena, calificacion, comentario, fechaCreacion);
-        System.out.println("Reseña creada correctamente:\n" + resena);
+        resena.setLocalComida(local);
+
+        local.recibirResena(resena);
+        System.out.println("\n[✔] ÉXITO: Reseña guardada y vinculada a " + local.getNombre());
     }
 
-    private void actualizarResena() {
-        System.out.println("\n--- ACTUALIZAR RESEÑA ---");
-        int idResena = leerEnteroPositivo("Ingrese ID de reseña a actualizar: ");
-        System.out.println("Proceda a ingresar los nuevos datos:");
-        crearResena();
+    private void crearFavoritoContextual(LocalComida local) {
+        System.out.println("\n--- CREAR FAVORITO ---");
+        int idUsuario = leerEnteroPositivo("Ingrese su ID de Usuario para asociar el favorito: ");
+        UsuarioFinal usuario = buscarUsuarioPorId(idUsuario);
+
+        if (usuario == null) {
+            System.out.println("[✖] ERROR: El usuario no existe. Debe crearlo primero en el menú de Usuarios.");
+            return;
+        }
+
+        int idFavorito = leerEnteroPositivo("Ingrese un ID para este registro de favorito: ");
+        int fechaAgregado = leerFechaComoInt8Digitos("Ingrese fecha de agregado (DD/MM/AAAA): ");
+
+        Favorito favorito = new Favorito(idFavorito, idUsuario, local.getIdLocal(), fechaAgregado);
+        usuario.agregarAFavoritos(favorito);
+        System.out.println("\n[✔] ÉXITO: " + local.getNombre() + " fue añadido a los favoritos de " + usuario.getNombre());
     }
 
-    private void eliminarResena() {
-        System.out.println("\n--- ELIMINAR RESEÑA ---");
-        int idResena = leerEnteroPositivo("Ingrese ID de reseña a eliminar: ");
-        System.out.println("Reseña eliminada correctamente. ID: " + idResena);
+    private void gestionarUbicacionLocal(LocalComida local) {
+        System.out.println("\n--- REGISTRAR / VER UBICACIÓN ---");
+        if (local.getUbicacion() != null) {
+            System.out.println("Ubicación actual de este local:\n" + local.getUbicacion());
+            System.out.print("¿Desea reescribir la ubicación? (1: Sí / 0: No): ");
+            if (leerEntero("") == 0) return;
+        }
+
+        String direccion = leerTextoValidado("Ingrese dirección: ", "Dirección inválida.", "Mínimo 5 caracteres.", Validador::esDireccionValida);
+        double latitud;
+        do {
+            latitud = leerDouble("Ingrese latitud: ");
+            if (!Validador.esLatitudValida(latitud)) System.out.println("[✖] ERROR: Rango de latitud inválido (-90 a 90).");
+        } while (!Validador.esLatitudValida(latitud));
+
+        double longitud;
+        do {
+            longitud = leerDouble("Ingrese longitud: ");
+            if (!Validador.esLongitudValida(longitud)) System.out.println("[✖] ERROR: Rango de longitud inválido (-180 a 180).");
+        } while (!Validador.esLongitudValida(longitud));
+
+        String ref = leerTextoValidado("Ingrese referencia textual: ", "Referencia inválida.", "Entre 5 y 200 caracteres.", Validador::esReferenciaTextualValida);
+
+        Ubicacion ub = new Ubicacion(direccion, latitud, longitud, ref);
+        ub.setLocalComida(local);
+        local.setUbicacion(ub);
+        System.out.println("\n[✔] ÉXITO: Ubicación vinculada correctamente al restaurante.");
     }
 
-    // --- CATEGORÍAS ---
     private void crearCategoria() {
         System.out.println("\n--- CREAR CATEGORÍA GASTRONÓMICA ---");
         int idCategoria = leerEnteroPositivo("Ingrese ID de categoría: ");
-        String nombreCategoria = leerTextoValidado("Ingrese nombre de categoría: ", "Nombre inválido.", Validador::esNombreCategoriaValido);
-        String descripcion = leerTextoValidado("Ingrese descripción: ", "Descripción inválida. Debe tener entre 5 y 200 caracteres.", Validador::esDescripcionCategoriaValida);
+        String nombreCategoria = leerTextoValidado("Ingrese nombre de categoría: ", "Nombre inválido.", "Solo letras.", Validador::esNombreCategoriaValido);
+        String descripcion = leerTextoValidado("Ingrese descripción: ", "Descripción inválida.", "Entre 5 y 200 caracteres.", Validador::esDescripcionCategoriaValida);
 
         CategoriaGastronomica categoria = new CategoriaGastronomica(idCategoria, nombreCategoria, descripcion);
-        System.out.println("Categoría creada correctamente:\n" + categoria);
+        System.out.println("\n[✔] ÉXITO: Categoría creada (Objeto instanciado):\n" + categoria);
     }
 
-    private void actualizarCategoria() {
-        System.out.println("\n--- ACTUALIZAR CATEGORÍA ---");
-        int idCategoria = leerEnteroPositivo("Ingrese ID de categoría a actualizar: ");
-        String nuevoNombre = leerTextoValidado("Ingrese nuevo nombre de categoría: ", "Nombre inválido.", Validador::esNombreCategoriaValido);
-        String nuevaDescripcion = leerTextoValidado("Ingrese nueva descripción: ", "Descripción inválida.", Validador::esDescripcionCategoriaValida);
-
-        CategoriaGastronomica categoria = new CategoriaGastronomica(idCategoria, nuevoNombre, nuevaDescripcion);
-        System.out.println("Categoría actualizada correctamente:\n" + categoria);
-    }
-
-    private void eliminarCategoria() {
-        System.out.println("\n--- ELIMINAR CATEGORÍA ---");
-        int idCategoria = leerEnteroPositivo("Ingrese ID de categoría a eliminar: ");
-        System.out.println("Categoría eliminada correctamente. ID: " + idCategoria);
-    }
-
-    // --- FACULTADES ---
     private void crearFacultad() {
         System.out.println("\n--- CREAR FACULTAD ---");
-        String nombre = leerTextoValidado("Ingrese nombre de la facultad: ", "Nombre inválido.", Validador::esNombreFacultadValido);
-        String descripcion = leerTextoValidado("Ingrese descripción: ", "Descripción inválida.", Validador::esDescripcionFacultadValida);
+        String nombre = leerTextoValidado("Ingrese nombre de la facultad: ", "Nombre inválido.", "Mín. 2 caracteres.", Validador::esNombreFacultadValido);
+        String descripcion = leerTextoValidado("Ingrese descripción: ", "Descripción inválida.", "Entre 5 y 200 caracteres.", Validador::esDescripcionFacultadValida);
 
         Facultad facultad = new Facultad(nombre, descripcion);
-        System.out.println("Facultad creada correctamente:\n" + facultad);
+        System.out.println("\n[✔] ÉXITO: Facultad creada (Objeto instanciado):\n" + facultad);
     }
 
-    private void actualizarFacultad() {
-        System.out.println("\n--- ACTUALIZAR FACULTAD ---");
-        String nombre = leerTextoValidado("Ingrese nuevo nombre de la facultad: ", "Nombre inválido.", Validador::esNombreFacultadValido);
-        String descripcion = leerTextoValidado("Ingrese nueva descripción: ", "Descripción inválida.", Validador::esDescripcionFacultadValida);
-
-        Facultad facultad = new Facultad(nombre, descripcion);
-        System.out.println("Facultad actualizada correctamente:\n" + facultad);
-    }
-
-    private void eliminarFacultad() {
-        System.out.println("\n--- ELIMINAR FACULTAD ---");
-        String nombre = leerTextoValidado("Ingrese nombre de la facultad a eliminar: ", "Nombre inválido.", Validador::esNombreFacultadValido);
-        System.out.println("Facultad eliminada correctamente: " + nombre);
-    }
-
-    // --- USUARIOS Y CUENTAS ---
     private void crearCuenta() {
-        System.out.println("\n--- CREAR CUENTA ---");
+        System.out.println("\n--- CREAR CUENTA BASE ---");
         int idPersona = leerEnteroPositivo("Ingrese ID de persona: ");
-        String nombre = leerTextoValidado("Ingrese nombre: ", "Nombre inválido. Debe contener solo letras y mínimo 2 caracteres.", Validador::esNombreValido);
-        String correo = leerTextoValidado("Ingrese correo institucional UCE: ", "Correo inválido. Debe terminar en @uce.edu.ec.", Validador::esCorreoUCEValido);
+        String nombre = leerTextoValidado("Ingrese su nombre completo: ", "Nombre inválido.", "Solo letras.", Validador::esNombreValido);
+        String correo = leerTextoValidado("Ingrese correo institucional UCE: ", "Dominio incorrecto.", "Debe terminar en @uce.edu.ec", Validador::esCorreoUCEValido);
         Date fechaNacimiento = leerFecha("Ingrese fecha de nacimiento (DD/MM/AAAA): ");
 
         Cuenta cuenta = new Cuenta(idPersona, nombre, correo, fechaNacimiento);
-        System.out.println("Cuenta creada correctamente:\n" + cuenta);
+        System.out.println("\n[✔] ÉXITO: Cuenta instanciada correctamente:\n" + cuenta);
     }
 
     private void crearUsuarioFinal() {
         System.out.println("\n--- CREAR USUARIO FINAL ---");
         int idUsuario = leerEnteroPositivo("Ingrese ID de usuario: ");
-        String nombre = leerTextoValidado("Ingrese nombre de usuario: ", "Nombre inválido.", Validador::esNombreUsuarioValido);
+        String nombre = leerTextoValidado("Ingrese nombre del usuario: ", "Nombre inválido.", "Solo letras.", Validador::esNombreUsuarioValido);
 
-        UsuarioFinal usuarioFinal = new UsuarioFinal(idUsuario, nombre);
-        System.out.println("Usuario final creado correctamente:\n" + usuarioFinal);
+        UsuarioFinal nuevoUsuario = new UsuarioFinal(idUsuario, nombre);
+        listaUsuarios.add(nuevoUsuario);
+        System.out.println("\n[✔] ÉXITO: Usuario guardado en el sistema.");
     }
 
     private void crearCuentaAdministrador() {
-        System.out.println("\n--- CREAR CUENTA ADMINISTRADOR ---");
-        String codigoAdministrador = leerTextoValidado("Ingrese código de administrador (ADM-001): ", "Código inválido. Debe tener formato ADM-001.", Validador::esCodigoAdministradorValido);
+        System.out.println("\n--- CREAR CUENTA DE ADMINISTRADOR ---");
+        String codigoAdministrador = leerTextoValidado("Ingrese código de administrador: ", "Formato inválido.", "Debe ser ADM-XXX (ej. ADM-001).", Validador::esCodigoAdministradorValido);
 
         CentroComida administrador = new CentroComida(codigoAdministrador);
-        System.out.println("Cuenta administrador creada correctamente:\n" + administrador);
+        System.out.println("\n[✔] ÉXITO: Administrador instanciado:\n" + administrador);
     }
 
-    private void actualizarUsuario() {
-        System.out.println("\n--- ACTUALIZAR USUARIO ---");
-        int idUsuario = leerEnteroPositivo("Ingrese ID de usuario a actualizar: ");
-        String nuevoNombre = leerTextoValidado("Ingrese nuevo nombre: ", "Nombre inválido.", Validador::esNombreUsuarioValido);
-        System.out.println("Usuario actualizado correctamente. ID: " + idUsuario + "\nNuevo nombre: " + nuevoNombre);
-    }
-
-    private void eliminarUsuario() {
-        System.out.println("\n--- ELIMINAR USUARIO ---");
-        int idUsuario = leerEnteroPositivo("Ingrese ID de usuario a eliminar: ");
-        System.out.println("Usuario eliminado correctamente. ID: " + idUsuario);
-    }
-
-    // --- FAVORITOS ---
-    private void crearFavorito() {
-        System.out.println("\n--- CREAR FAVORITO ---");
-        int idFavorito = leerEnteroPositivo("Ingrese ID de favorito: ");
-        int idUsuario = leerEnteroPositivo("Ingrese ID de usuario: ");
-        int idLocal = leerEnteroPositivo("Ingrese ID de local: ");
-        int fechaAgregado = leerFechaNumerica("Ingrese fecha de agregado (AAAAMMDD): ");
-
-        Favorito favorito = new Favorito(idFavorito, idUsuario, idLocal, fechaAgregado);
-        System.out.println("Favorito creado correctamente:\n" + favorito);
-    }
-
-    private void actualizarFavorito() {
-        System.out.println("\n--- ACTUALIZAR FAVORITO ---");
-        int idFavorito = leerEnteroPositivo("Ingrese ID de favorito a actualizar: ");
-        System.out.println("Proceda a ingresar los nuevos datos:");
-        crearFavorito();
-    }
-
-    private void eliminarFavorito() {
-        System.out.println("\n--- ELIMINAR FAVORITO ---");
-        int idFavorito = leerEnteroPositivo("Ingrese ID de favorito a eliminar: ");
-        System.out.println("Favorito eliminado correctamente. ID: " + idFavorito);
-    }
-
-    // --- UBICACIÓN ---
-    private void crearUbicacion() {
-        System.out.println("\n--- CREAR UBICACIÓN ---");
-        String direccion = leerTextoValidado("Ingrese dirección: ", "Dirección inválida.", Validador::esDireccionValida);
-        double latitud;
-        do {
-            latitud = leerDouble("Ingrese latitud (-90 a 90): ");
-            if (!Validador.esLatitudValida(latitud)) {
-                System.out.println("Latitud inválida.");
+    private void consultarUsuarios() {
+        System.out.println("\n--- LISTA DE USUARIOS FINALES ---");
+        if (listaUsuarios.isEmpty()) {
+            System.out.println("No hay usuarios finales registrados.");
+        } else {
+            for (UsuarioFinal u : listaUsuarios) {
+                System.out.println(u);
             }
-        } while (!Validador.esLatitudValida(latitud));
-        double longitud;
-        do {
-            longitud = leerDouble("Ingrese longitud (-180 a 180): ");
-            if (!Validador.esLongitudValida(longitud)) {
-                System.out.println("Longitud inválida.");
+        }
+    }
+
+    // =====================================================
+    // MÉTODOS AUXILIARES DE BÚSQUEDA
+    // =====================================================
+
+    private LocalComida buscarLocalPorId(int id) {
+        for (LocalComida l : listaLocales) {
+            if (l.getIdLocal() == id) return l;
+        }
+        return null;
+    }
+
+    private UsuarioFinal buscarUsuarioPorId(int id) {
+        for (UsuarioFinal u : listaUsuarios) {
+            if (u.getIdPersona() == id) return u;
+        }
+        return null;
+    }
+
+    // =====================================================
+    // PROCESAMIENTO INTELECTUAL DE FORMATOS DE FECHA
+    // =====================================================
+
+    private int leerFechaComoInt8Digitos(String mensaje) {
+        while (true) {
+            Date fechaObj = leerFecha(mensaje);
+            SimpleDateFormat convertidor = new SimpleDateFormat("yyyyMMdd");
+            int fechaEntera = Integer.parseInt(convertidor.format(fechaObj));
+
+            if (Validador.esFechaActualizacionValida(fechaEntera)) {
+                return fechaEntera;
+            } else {
+                System.out.println("[✖] ERROR: La fecha ingresada no cumple el formato o rango del sistema.");
             }
-        } while (!Validador.esLongitudValida(longitud));
-        String referenciaTextual = leerTextoValidado("Ingrese referencia textual: ", "Referencia inválida.", Validador::esReferenciaTextualValida);
+        }
+    }
 
-        Ubicacion ubicacion = new Ubicacion(direccion, latitud, longitud, referenciaTextual);
-        System.out.println("Ubicación creada correctamente:\n" + ubicacion);
+    private String convertirIntAFechaString(int fechaInt) {
+        String s = String.valueOf(fechaInt);
+        if (s.length() != 8) return s;
+        String anio = s.substring(0, 4);
+        String mes = s.substring(4, 6);
+        String dia = s.substring(6, 8);
+        return anio + "/" + mes + "/" + dia;
     }
 
     // =====================================================
-    // MENÚS DE EXTENSIONES (FILTROS DE BÚSQUEDA)
-    // =====================================================
-
-    private void menuConsultarLocalesFiltros() {
-        System.out.println("\n--- FILTROS DE BÚSQUEDA DE LOCALES ---");
-        System.out.println("1. Buscar por nombre");
-        System.out.println("2. Buscar por facultad");
-        System.out.println("3. Buscar por categoría gastronómica");
-        System.out.println("4. Buscar por horario de atención");
-        System.out.println("5. Buscar por estado de apertura");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    private void menuConsultarPlatosFiltros() {
-        System.out.println("\n--- FILTROS DE PLATOS ---");
-        System.out.println("1. Consultar por categoría");
-        System.out.println("2. Consultar por nombre");
-        System.out.println("3. Consultar por precio");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    private void menuConsultarResenasFiltros() {
-        System.out.println("\n--- FILTROS DE RESEÑAS ---");
-        System.out.println("1. Consultar por estrellas");
-        System.out.println("2. Consultar por más recientes");
-        System.out.println("3. Consultar por más antiguas");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    private void menuConsultarCategoriaFiltros() {
-        System.out.println("\n--- FILTROS DE CATEGORÍA ---");
-        System.out.println("1. Consultar por almuerzos");
-        System.out.println("2. Consultar por desayunos");
-        System.out.println("3. Consultar por comida rápida");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    private void menuConsultarFacultadFiltros() {
-        System.out.println("\n--- FILTROS DE FACULTADES ---");
-        System.out.println("1. Consultar por nombre de Facultad");
-        System.out.println("2. Consultar por espacio Universitario");
-        System.out.println("3. Consultar por lugar de ingreso");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    private void menuConsultarUsuarioFiltros() {
-        System.out.println("\n--- FILTROS DE USUARIO ---");
-        System.out.println("1. Consultar usuario por ID");
-        System.out.println("2. Consultar usuario por nombre");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    private void menuConsultarFavoritosFiltros() {
-        System.out.println("\n--- FILTROS DE FAVORITOS ---");
-        System.out.println("1. Consultar locales favoritos");
-        System.out.println("2. Consultar platos favoritos");
-        int op = leerEntero("Seleccione filtro: ");
-        System.out.println("Opciones de filtrado cargadas. (Requiere implementación de listas/BD para buscar)");
-    }
-
-    // =====================================================
-    // MÉTODOS AUXILIARES DE ENTRADA Y VALIDACIÓN
+    // MOTOR ROBUSTO DE ENTRADA (ANTI-CRASH)
     // =====================================================
 
     private int leerEntero(String mensaje) {
         while (true) {
             try {
                 System.out.print(mensaje);
-                return Integer.parseInt(scanner.nextLine());
+                return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("Debe ingresar un número entero válido.");
+                System.out.println("[✖] ERROR: Entrada no válida. Debe ingresar un número entero sin letras ni símbolos.");
             }
         }
     }
 
     private int leerEnteroPositivo(String mensaje) {
         int numero;
-        do {
+        while (true) {
             numero = leerEntero(mensaje);
-            if (numero <= 0) {
-                System.out.println("El número debe ser mayor que cero.");
-            }
-        } while (numero <= 0);
-        return numero;
+            if (numero > 0) return numero;
+            else System.out.println("[✖] ERROR: El número debe ser mayor a cero.");
+        }
     }
 
     private double leerDouble(String mensaje) {
         while (true) {
             try {
                 System.out.print(mensaje);
-                return Double.parseDouble(scanner.nextLine());
+                return Double.parseDouble(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("Debe ingresar un número decimal válido.");
+                System.out.println("[✖] ERROR: Entrada no válida. Ingrese un decimal usando punto.");
             }
         }
     }
 
     private double leerDoublePositivo(String mensaje) {
         double numero;
-        do {
+        while (true) {
             numero = leerDouble(mensaje);
-            if (numero <= 0) {
-                System.out.println("El número debe ser mayor que cero.");
-            }
-        } while (numero <= 0);
-        return numero;
+            if (numero > 0) return numero;
+            else System.out.println("[✖] ERROR: El número debe ser mayor a cero.");
+        }
     }
 
     private Date leerFecha(String mensaje) {
-        String fechaTexto;
         while (true) {
             System.out.print(mensaje);
-            fechaTexto = scanner.nextLine();
+            String fechaTexto = scanner.nextLine().trim();
             try {
                 return formatoFecha.parse(fechaTexto);
             } catch (ParseException e) {
-                System.out.println("Fecha inválida. Use formato DD/MM/AAAA.");
+                System.out.println("[✖] ERROR: Fecha inválida. Use el formato DD/MM/AAAA (ej. 14/05/2026).");
             }
         }
     }
 
-    private int leerFechaNumerica(String mensaje) {
-        int fecha;
-        do {
-            fecha = leerEntero(mensaje);
-            if (String.valueOf(fecha).length() != 8) {
-                System.out.println("Fecha inválida. Use formato AAAAMMDD.");
-            }
-        } while (String.valueOf(fecha).length() != 8);
-        return fecha;
-    }
-
-    private String leerTextoValidado(String mensaje, String mensajeError, ValidadorTexto validador) {
+    private String leerTextoValidado(String mensaje, String mensajeError, String sugerencia, ValidadorTexto validador) {
         String texto;
-        do {
+        while (true) {
             System.out.print(mensaje);
-            texto = scanner.nextLine();
-            if (!validador.validar(texto)) {
-                System.out.println(mensajeError);
+            texto = scanner.nextLine().trim();
+            if (validador.validar(texto)) {
+                return texto;
+            } else {
+                System.out.println("[✖] ERROR: " + mensajeError);
+                if (sugerencia != null && !sugerencia.isEmpty()) {
+                    System.out.println("    [!] Sugerencia: " + sugerencia);
+                }
             }
-        } while (!validador.validar(texto));
-        return texto;
+        }
     }
 
     @FunctionalInterface
