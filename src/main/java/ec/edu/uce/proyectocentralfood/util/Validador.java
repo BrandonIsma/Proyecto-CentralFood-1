@@ -76,7 +76,10 @@ public class Validador {
     }
 
     public static boolean esFechaNacimientoValida(Date fechaNacimiento) {
-        return fechaNacimiento != null;
+        if (fechaNacimiento == null) return false;
+
+        // La fecha de nacimiento no puede ser hoy ni en el futuro
+        return fechaNacimiento.before(new Date());
     }
 
     // =====================================================
@@ -208,7 +211,6 @@ public class Validador {
     public static boolean esFechaActualizacionValida(int fechaActualizacion) {
         return validar(String.valueOf(fechaActualizacion), REGEX_FECHA_NUMERICA);
     }
-
     // =====================================================
     // RESEÑA
     // Atributos:
