@@ -380,7 +380,7 @@ public class MenuConsola {
         String nombre = leerTextoValidado("Ingrese nombre de la facultad: ", "Nombre inválido.", Validador::esNombreFacultadValido);
         String descripcion = leerTextoValidado("Ingrese descripción: ", "Descripción inválida.", Validador::esDescripcionFacultadValida);
 
-        GestionarFacultad facultad = new GestionarFacultad(nombre, descripcion);
+        Facultad facultad = new Facultad(nombre, descripcion);
         System.out.println("Facultad creada correctamente:\n" + facultad);
     }
 
@@ -389,7 +389,7 @@ public class MenuConsola {
         String nombre = leerTextoValidado("Ingrese nuevo nombre de la facultad: ", "Nombre inválido.", Validador::esNombreFacultadValido);
         String descripcion = leerTextoValidado("Ingrese nueva descripción: ", "Descripción inválida.", Validador::esDescripcionFacultadValida);
 
-        GestionarFacultad facultad = new GestionarFacultad(nombre, descripcion);
+        Facultad facultad = new Facultad(nombre, descripcion);
         System.out.println("Facultad actualizada correctamente:\n" + facultad);
     }
 
