@@ -10,11 +10,13 @@ public class TestResena {
 
         System.out.println("--- TEST RESEÑA ---");
 
+        Date fechaCreacion = new Date();
+
         Resena resena = new Resena(
                 1,
                 5,
-                "Excelente atención y comida deliciosa.",
-                new Date()
+                "Excelente comida y buena atención.",
+                fechaCreacion
         );
 
         // PRUEBA ID RESEÑA
@@ -35,25 +37,24 @@ public class TestResena {
 
         // PRUEBA COMENTARIO
         System.out.print("Prueba comentario: ");
-        if ("Excelente atención y comida deliciosa.".equals(resena.getComentario())) {
+        if ("Excelente comida y buena atención.".equals(resena.getComentario())) {
             System.out.println("PASÓ ✔");
         } else {
             System.out.println("FALLÓ ❌");
         }
 
-        // PRUEBA FECHA
+        // PRUEBA FECHA CREACIÓN
         System.out.print("Prueba fecha creación: ");
-        if (resena.getFechaCreacion() != null) {
+        if (fechaCreacion.equals(resena.getFechaCreacion())) {
             System.out.println("PASÓ ✔");
         } else {
             System.out.println("FALLÓ ❌");
         }
 
-        // ACTUALIZAR DATOS
+        // PRUEBA ACTUALIZACIÓN DE DATOS
         resena.setCalificacion(4);
-        resena.setComentario("Buen servicio y ambiente agradable.");
+        resena.setComentario("Buena comida, pero puede mejorar.");
 
-        // PRUEBA ACTUALIZACIÓN CALIFICACIÓN
         System.out.print("Prueba actualización calificación: ");
         if (resena.getCalificacion() == 4) {
             System.out.println("PASÓ ✔");
@@ -62,11 +63,17 @@ public class TestResena {
         }
 
         System.out.print("Prueba actualización comentario: ");
-        if ("Buen servicio y ambiente agradable.".equals(resena.getComentario())) {
+        if ("Buena comida, pero puede mejorar.".equals(resena.getComentario())) {
             System.out.println("PASÓ ✔");
         } else {
             System.out.println("FALLÓ ❌");
         }
+
+        // EJECUCIÓN DE MÉTODOS DEL DIAGRAMA
+        resena.crearResena();
+        resena.consultarResena();
+        resena.actualizarResena();
+        resena.eliminarResena();
 
         System.out.println("\nDATOS DE LA RESEÑA:");
         System.out.println(resena);

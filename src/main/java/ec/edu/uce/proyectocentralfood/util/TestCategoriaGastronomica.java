@@ -2,28 +2,61 @@ package ec.edu.uce.proyectocentralfood.util;
 import ec.edu.uce.proyectocentralfood.dominio.CategoriaGastronomica;
 public class TestCategoriaGastronomica {
     public static void main(String[] args) {
-        System.out.println("=== INICIANDO TEST DE CATEGORIA GASTRONOMICA ===");
-//
-        // 1. Instancia mediante constructor con parámetros
-        CategoriaGastronomica cat1 = new CategoriaGastronomica(10, "Almuerzos", "Comida completa del dia");
 
-        // 2. Instancia mediante constructor vacío y setters
-        CategoriaGastronomica cat2 = new CategoriaGastronomica();
-        cat2.setIdCategoria(20);
-        cat2.setNombreCategoria("Desayunos");
-        cat2.setDescripcion("Opciones matutinas nutritivas");
+        System.out.println("--- TEST CATEGORÍA GASTRONÓMICA ---");
 
-        // 3. Prueba de VALIDACIÓN (Intentar meter datos incorrectos)
-        CategoriaGastronomica catError = new CategoriaGastronomica();
-        catError.setIdCategoria(99);
-        catError.setNombreCategoria("Plat0_Mal0"); // Contiene número, debería fallar en el validador
-        catError.setDescripcion("Error @#$%");    // Contiene símbolos
+        CategoriaGastronomica categoria = new CategoriaGastronomica(
+                1,
+                "Almuerzos",
+                "Opciones de almuerzo para estudiantes."
+        );
 
-        // 4. Mostrar resultados usando el método toString()
-        System.out.println("\n[PRUEBA 1 - Constructor]: " + cat1.toString());
-        System.out.println("[PRUEBA 2 - Setters]: " + cat2.toString());
-        System.out.println("[PRUEBA 3 - Error de Validación]: " + catError.toString());
+        // PRUEBA ID CATEGORÍA
+        System.out.print("Prueba ID categoría: ");
+        if (categoria.getIdCategoria() == 1) {
+            System.out.println("PASÓ ✔️");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
 
-        System.out.println("\n=== TEST FINALIZADO CORRECTAMENTE ===");
+        // PRUEBA NOMBRE CATEGORÍA
+        System.out.print("Prueba nombre categoría: ");
+        if ("Almuerzos".equals(categoria.getNombreCategoria())) {
+            System.out.println("PASÓ ✔️");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        // PRUEBA DESCRIPCIÓN
+        System.out.print("Prueba descripción: ");
+        if ("Opciones de almuerzo para estudiantes.".equals(categoria.getDescripcion())) {
+            System.out.println("PASÓ ✔️");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        // PRUEBA ACTUALIZACIÓN DE DATOS
+        categoria.setIdCategoria(2);
+        categoria.setNombreCategoria("Desayunos");
+        categoria.setDescripcion("Opciones de desayuno cerca de la universidad.");
+
+        System.out.print("Prueba actualización ID categoría: ");
+        if (categoria.getIdCategoria() == 2) {
+            System.out.println("PASÓ ✔️");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        System.out.print("Prueba actualización nombre categoría: ");
+        if ("Desayunos".equals(categoria.getNombreCategoria())) {
+            System.out.println("PASÓ ✔️");
+        } else {
+            System.out.println("FALLÓ ❌");
+        }
+
+        System.out.println("\nDATOS DE LA CATEGORÍA:");
+        System.out.println(categoria);
+
+        System.out.println("--- FIN TEST CATEGORÍA GASTRONÓMICA ---");
     }
 }
