@@ -2,15 +2,26 @@ package ec.edu.uce.proyectocentralfood;
 
 import ec.edu.uce.proyectocentralfood.interfaz.MenuConsola;
 
+/**
+ * Clase principal y punto de entrada para el sistema Central Food.
+ */
 public class Main {
+
     public static void main(String[] args) {
-        // Opcional: Un mensaje de bienvenida antes de cargar el menú
-        System.out.println("Cargando el sistema CentralFood...");
+        // Mensajes de inicialización del sistema
+        System.out.println("[i] Iniciando el Sistema Central Food...");
+        System.out.println("[i] Cargando base de datos en memoria y motores de validación...");
 
-        // Instanciamos el menú de la consola
-        MenuConsola menu = new MenuConsola();
+        try {
+
+            MenuConsola menu = new MenuConsola();
 
 
-        menu.iniciar();
+            menu.iniciar();
+
+        } catch (Exception e) {
+            System.err.println("\n[✖] ERROR CRÍTICO: Ocurrió un problema inesperado al ejecutar la aplicación.");
+            e.printStackTrace();
+        }
     }
 }
