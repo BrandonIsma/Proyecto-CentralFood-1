@@ -9,8 +9,6 @@ public class TestGestionarFacultad {
         System.out.println("--- TEST PUNTO DE Gestionar Facultad ---");
 
         Facultad punto = new Facultad(
-                "Facultad de Ingeniería",
-                "Punto de referencia ubicado dentro del campus universitario."
         );
 
         // PRUEBA NOMBRE

@@ -12,7 +12,7 @@ public class Facultad {
     private Ubicacion ubicacion;
 
     // CONSTRUCTOR VACÍO
-    public Facultad(String facultadDeIngeniería, String s) {
+    public Facultad() {
     }
 
     // CONSTRUCTOR CON PARÁMETROS

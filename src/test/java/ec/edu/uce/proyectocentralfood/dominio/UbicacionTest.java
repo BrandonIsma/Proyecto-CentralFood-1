@@ -58,6 +58,44 @@ class UbicacionTest {
     }
 
     @Test
+    void getFacultad() {
+        assertNull(ubicacion.getFacultad());
+    }
+
+    @Test
+    void setFacultad() {
+
+        Facultad facultad = new Facultad();
+
+        ubicacion.setFacultad(facultad);
+
+        assertEquals(facultad, ubicacion.getFacultad());
+    }
+
+    @Test
+    void getLocalComida() {
+        assertNull(ubicacion.getLocalComida());
+    }
+
+    @Test
+    void setLocalComida() {
+
+        LocalComida local = new LocalComida(
+                1,
+                "Comedor Central",
+                "Comida universitaria",
+                "0999999999",
+                "08:00-17:00",
+                "ABIERTO",
+                "BAJO"
+        );
+
+        ubicacion.setLocalComida(local);
+
+        assertEquals(local, ubicacion.getLocalComida());
+    }
+
+    @Test
     void testToString() {
         assertTrue(ubicacion.toString().contains("Av. Universitaria"));
     }
