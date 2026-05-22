@@ -1,0 +1,64 @@
+package ec.edu.uce.proyectocentralfood.dominio;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UbicacionTest {
+
+    Ubicacion ubicacion = new Ubicacion(
+            "Av. Universitaria",
+            -0.210,
+            -78.490,
+            "Frente a la facultad"
+    );
+
+    @Test
+    void getDireccion() {
+        assertEquals("Av. Universitaria", ubicacion.getDireccion());
+    }
+
+    @Test
+    void setDireccion() {
+        ubicacion.setDireccion("Calle Principal");
+        assertEquals("Calle Principal", ubicacion.getDireccion());
+    }
+
+    @Test
+    void getLatitud() {
+        assertEquals(-0.210, ubicacion.getLatitud());
+    }
+
+    @Test
+    void setLatitud() {
+        ubicacion.setLatitud(-0.300);
+        assertEquals(-0.300, ubicacion.getLatitud());
+    }
+
+    @Test
+    void getLongitud() {
+        assertEquals(-78.490, ubicacion.getLongitud());
+    }
+
+    @Test
+    void setLongitud() {
+        ubicacion.setLongitud(-78.500);
+        assertEquals(-78.500, ubicacion.getLongitud());
+    }
+
+    @Test
+    void getReferenciaTextual() {
+        assertEquals("Frente a la facultad", ubicacion.getReferenciaTextual());
+    }
+
+    @Test
+    void setReferenciaTextual() {
+        ubicacion.setReferenciaTextual("Junto al parque");
+        assertEquals("Junto al parque", ubicacion.getReferenciaTextual());
+    }
+
+    @Test
+    void testToString() {
+        assertTrue(ubicacion.toString().contains("Av. Universitaria"));
+    }
+}
