@@ -8,7 +8,7 @@ public class CategoriaGastronomica {
     private String descripcion;
 
 
-    public CategoriaGastronomica() {
+    public CategoriaGastronomica(int idCategoria, String nombreCategoria, String descripcion, Plato[] platoes, LocalComida[] localComidas) {
     }
 
 

@@ -9,7 +9,7 @@ public class Cuenta {
     private String correo;
     private Date fechaNacimiento;
 
-    public Cuenta() {
+    public Cuenta(String nombre, String correo, Date fechaNacimiento) {
     }
 
     public Cuenta(int idPersona, String nombre, String correo, Date fechaNacimiento) {
