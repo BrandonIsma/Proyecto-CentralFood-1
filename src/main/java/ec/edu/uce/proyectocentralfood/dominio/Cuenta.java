@@ -21,6 +21,9 @@ public class Cuenta {
         setFechaNacimiento(fechaNacimiento);
     }
 
+    public Cuenta(int idPersona, String nombre, String correo, Date fechaNacimiento) {
+    }
+
     // Métodos accesores y modificadores booleanos validados
     public String getNombre() {
         return nombre;

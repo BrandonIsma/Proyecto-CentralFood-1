@@ -23,6 +23,9 @@ public class CategoriaGastronomica {
         setLocales(locales);
     }
 
+    public CategoriaGastronomica(int idCategoria, String nombreCategoria, String descripcion) {
+    }
+
     // Métodos accesores y modificadores booleanos validados
     public int getIdCategoria() {
         return idCategoria;

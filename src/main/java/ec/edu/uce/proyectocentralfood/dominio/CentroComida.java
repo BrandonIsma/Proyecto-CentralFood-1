@@ -26,6 +26,9 @@ public class CentroComida {
         setFacultades(facultades);
     }
 
+    public CentroComida(String codigoAdministrador) {
+    }
+
     // GETTERS Y SETTERS (Booleanos y con validación)
     public String getNombre() {
         return nombre;

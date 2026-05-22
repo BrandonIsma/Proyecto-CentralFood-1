@@ -31,6 +31,9 @@ public class UsuarioFinal extends Cuenta {
         setIdPersona(idPersona);
     }
 
+    public UsuarioFinal(int idUsuario, String nombre) {
+    }
+
     // GETTERS Y SETTERS CON VALIDACIÓN
 
     public int getIdPersona() {
