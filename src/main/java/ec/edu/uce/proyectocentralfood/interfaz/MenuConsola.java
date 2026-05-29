@@ -15,7 +15,6 @@ public class MenuConsola {
     private final Scanner scanner;
     private final SimpleDateFormat formatoFecha;
 
-    // Almacenamiento en memoria para persistencia real de datos
     private final List<LocalComida> listaLocales;
     private final List<UsuarioFinal> listaUsuarios;
 
@@ -27,7 +26,6 @@ public class MenuConsola {
         this.listaLocales = new ArrayList<>();
         this.listaUsuarios = new ArrayList<>();
 
-        // Carga de datos iniciales para pruebas del sistema
         cargarDatosSimulados();
     }
 
@@ -62,12 +60,10 @@ public class MenuConsola {
                 case 3: menuGestionarFacultad(); break;
                 case 4: menuGestionarUsuario(); break;
                 case 5:
-                    // VALIDACIÓN ELIMINADA: Solo pide el entero y te deja pasar
                     int idUsuario = leerEnteroPositivo("\nIngrese su ID de Usuario para gestionar sus favoritos: ");
                     menuGestionarFavoritos(idUsuario);
                     break;
                 case 6:
-                    // VALIDACIÓN ELIMINADA: Solo pide el entero y te deja pasar
                     int idLocalResena = leerEnteroPositivo("\nIngrese el ID del Local para gestionar sus reseñas: ");
                     menuGestionarResenas(idLocalResena);
                     break;
@@ -82,10 +78,6 @@ public class MenuConsola {
 
         scanner.close();
     }
-
-    // =====================================================
-    // 1. GESTIÓN DE LOCALES
-    // =====================================================
 
     private void menuGestionarLocales() {
         int opcion;
@@ -143,10 +135,6 @@ public class MenuConsola {
         } while (opcion != 0);
     }
 
-    // =====================================================
-    // GESTIÓN DE PLATOS
-    // =====================================================
-
     private void menuGestionarPlatos(LocalComida local) {
         int opcion;
         do {
@@ -169,10 +157,6 @@ public class MenuConsola {
             }
         } while (opcion != 0);
     }
-
-    // =====================================================
-    // 2. GESTIÓN DE CATEGORÍAS GASTRONÓMICAS
-    // =====================================================
 
     private void menuGestionarCategoria() {
         int opcion;
@@ -197,10 +181,6 @@ public class MenuConsola {
         } while (opcion != 0);
     }
 
-    // =====================================================
-    // 3. GESTIÓN DE FACULTADES
-    // =====================================================
-
     private void menuGestionarFacultad() {
         int opcion;
         do {
@@ -223,10 +203,6 @@ public class MenuConsola {
             }
         } while (opcion != 0);
     }
-
-    // =====================================================
-    // 4. GESTIÓN DE USUARIOS
-    // =====================================================
 
     private void menuGestionarUsuario() {
         int opcion;
@@ -255,12 +231,7 @@ public class MenuConsola {
         } while (opcion != 0);
     }
 
-    // =====================================================
-    // 5. GESTIÓN DE FAVORITOS (ACCESO LIBRE)
-    // =====================================================
-
     private void menuGestionarFavoritos(int idUsuario) {
-        // Se busca al usuario. Si no se encuentra, se crea uno "fantasma" para que el menú no explote.
         UsuarioFinal usuario = buscarUsuarioPorId(idUsuario);
         if (usuario == null) {
             usuario = new UsuarioFinal();
@@ -280,18 +251,18 @@ public class MenuConsola {
             switch (opcion) {
                 case 1: System.out.println("[i] Función de actualización en desarrollo..."); break;
                 case 2:
-                    if (usuario.getFavoritos() == null || usuario.getFavoritos().isEmpty()) {
+                    if (usuario.getFavoritos() == null || usuario.getFavoritos().length == 0) {
                         System.out.println("[i] No tienes favoritos agregados.");
                     } else {
                         int idFav = leerEnteroPositivo("Ingrese el ID del favorito a eliminar: ");
-                        boolean eliminado = usuario.getFavoritos().removeIf(f -> f.getIdFavorito() == idFav);
+                        boolean eliminado = usuario.eliminarFavorito(idFav);
                         if (eliminado) System.out.println("[✔] ÉXITO: Favorito eliminado correctamente.");
                         else System.out.println("[✖] ERROR: No se encontró ese ID de favorito.");
                     }
                     break;
                 case 3:
                     System.out.println("\n--- MIS FAVORITOS ---");
-                    if (usuario.getFavoritos() == null || usuario.getFavoritos().isEmpty()) {
+                    if (usuario.getFavoritos() == null || usuario.getFavoritos().length == 0) {
                         System.out.println("No tienes locales guardados en tus favoritos.");
                     } else {
                         for (Favorito f : usuario.getFavoritos()) {
@@ -305,12 +276,7 @@ public class MenuConsola {
         } while (opcion != 0);
     }
 
-    // =====================================================
-    // 6. GESTIÓN DE RESEÑAS (ACCESO LIBRE)
-    // =====================================================
-
     private void menuGestionarResenas(int idLocal) {
-        // Se busca el local. Si no se encuentra, se crea uno temporal para evitar bloqueos.
         LocalComida local = buscarLocalPorId(idLocal);
         if (local == null) {
             local = new LocalComida();
@@ -330,7 +296,7 @@ public class MenuConsola {
 
             switch (opcion) {
                 case 1:
-                    if (local.getResenas() == null || local.getResenas().isEmpty()) {
+                    if (local.getResenas() == null || local.getResenas().length == 0) {
                         System.out.println("[i] El local no tiene reseñas para actualizar.");
                     } else {
                         int idRes = leerEnteroPositivo("Ingrese el ID de la reseña a actualizar: ");
@@ -348,18 +314,18 @@ public class MenuConsola {
                     }
                     break;
                 case 2:
-                    if (local.getResenas() == null || local.getResenas().isEmpty()) {
+                    if (local.getResenas() == null || local.getResenas().length == 0) {
                         System.out.println("[i] El local no tiene reseñas registradas.");
                     } else {
                         int idRes = leerEnteroPositivo("Ingrese el ID de la reseña a eliminar: ");
-                        boolean removido = local.getResenas().removeIf(r -> r.getIdResena() == idRes);
+                        boolean removido = local.eliminarResena(idRes);
                         if (removido) System.out.println("[✔] ÉXITO: Reseña eliminada correctamente.");
                         else System.out.println("[✖] ERROR: ID de reseña no encontrado.");
                     }
                     break;
                 case 3:
                     System.out.println("\n--- RESEÑAS DEL LOCAL [" + local.getNombre() + "] ---");
-                    if (local.getResenas() == null || local.getResenas().isEmpty()) {
+                    if (local.getResenas() == null || local.getResenas().length == 0) {
                         System.out.println("Este local aún no cuenta con reseñas de usuarios.");
                     } else {
                         for (Resena r : local.getResenas()) {
@@ -372,10 +338,6 @@ public class MenuConsola {
             }
         } while (opcion != 0);
     }
-
-    // =====================================================
-    // MÉTODOS DE CREACIÓN Y MODIFICACIÓN REAL DE PLATOS
-    // =====================================================
 
     private void crearPlatoContextual(LocalComida local) {
         System.out.println("\n--- CREAR PLATO ---");
@@ -394,8 +356,8 @@ public class MenuConsola {
         double precio = leerDoublePositivo("Ingrese precio del plato ($): ");
         int fechaActualizacion = leerFechaComoInt8Digitos("Ingrese fecha de actualización (DD/MM/AAAA): ");
 
-        Plato nuevoPlato = new Plato(idPlato, nombre, cat, descripcion, precio, fechaActualizacion);
-        nuevoPlato.setLocalComida(local);
+        CategoriaGastronomica cg = new CategoriaGastronomica(1, cat, "Categoría asignada");
+        Plato nuevoPlato = new Plato(idPlato, nombre, descripcion, precio, fechaActualizacion, cg);
 
         local.agregarPlato(nuevoPlato);
         System.out.println("\n[✔] ÉXITO: Plato creado correctamente y añadido a " + local.getNombre());
@@ -403,7 +365,7 @@ public class MenuConsola {
 
     private void actualizarPlatoContextual(LocalComida local) {
         System.out.println("\n--- ACTUALIZAR PLATO ---");
-        if (local.getPlatos().isEmpty()) {
+        if (local.getPlatos().length == 0) {
             System.out.println("[i] No hay platos registrados en este local para actualizar.");
             return;
         }
@@ -432,12 +394,12 @@ public class MenuConsola {
 
     private void eliminarPlatoContextual(LocalComida local) {
         System.out.println("\n--- ELIMINAR PLATO ---");
-        if (local.getPlatos().isEmpty()) {
+        if (local.getPlatos().length == 0) {
             System.out.println("[i] No hay platos para eliminar.");
             return;
         }
         int idPlato = leerEnteroPositivo("Ingrese el ID del plato a eliminar: ");
-        boolean eliminado = local.getPlatos().removeIf(p -> p.getIdPlato() == idPlato);
+        boolean eliminado = local.eliminarPlato(idPlato);
 
         if (eliminado) System.out.println("[✔] ÉXITO: Plato eliminado correctamente de la lista.");
         else System.out.println("[✖] ERROR: No se encontró ningún plato con ese ID.");
@@ -445,7 +407,7 @@ public class MenuConsola {
 
     private void consultarPlatosContextual(LocalComida local) {
         System.out.println("\n--- CARTELERA DE PLATOS: " + local.getNombre().toUpperCase() + " ---");
-        if (local.getPlatos().isEmpty()) {
+        if (local.getPlatos().length == 0) {
             System.out.println("Este local de comida aún no tiene platos registrados en su menú.");
         } else {
             for (Plato p : local.getPlatos()) {
@@ -453,10 +415,6 @@ public class MenuConsola {
             }
         }
     }
-
-    // =====================================================
-    // MÉTODOS DE OPERACIÓN REAL DE LOCALES
-    // =====================================================
 
     private void crearLocal() {
         System.out.println("\n--- CREAR LOCAL DE COMIDA ---");
@@ -531,10 +489,6 @@ public class MenuConsola {
         }
     }
 
-    // =====================================================
-    // OTROS COMPONENTES GLOBALES DEL SISTEMA
-    // =====================================================
-
     private void crearResenaContextual(LocalComida local) {
         System.out.println("\n--- CREAR RESEÑA ---");
         int idResena = leerEnteroPositivo("Ingrese un ID único para su reseña: ");
@@ -569,14 +523,14 @@ public class MenuConsola {
         int idFavorito = leerEnteroPositivo("Ingrese un ID para este registro de favorito: ");
         int fechaAgregado = leerFechaComoInt8Digitos("Ingrese fecha de agregado (DD/MM/AAAA): ");
 
-        Favorito favorito = new Favorito(idFavorito, idUsuario, local.getIdLocal(), fechaAgregado);
+        Favorito favorito = new Favorito(idFavorito, fechaAgregado, local);
         usuario.agregarAFavoritos(favorito);
         System.out.println("\n[✔] ÉXITO: " + local.getNombre() + " fue añadido a los favoritos de " + usuario.getNombre());
     }
 
     private void gestionarUbicacionLocal(LocalComida local) {
         System.out.println("\n--- REGISTRAR / VER UBICACIÓN ---");
-        if (local.getUbicacion() != null) {
+        if (local.getUbicacion() != null && !local.getUbicacion().getDireccion().equals("Sin dirección")) {
             System.out.println("Ubicación actual de este local:\n" + local.getUbicacion());
             System.out.print("¿Desea reescribir la ubicación? (1: Sí / 0: No): ");
             if (leerEntero("") == 0) return;
@@ -624,12 +578,11 @@ public class MenuConsola {
 
     private void crearCuenta() {
         System.out.println("\n--- CREAR CUENTA BASE ---");
-        int idPersona = leerEnteroPositivo("Ingrese ID de persona: ");
         String nombre = leerTextoValidado("Ingrese su nombre completo: ", "Nombre inválido.", "Solo letras.", Validador::esNombreValido);
         String correo = leerTextoValidado("Ingrese correo institucional UCE: ", "Dominio incorrecto.", "Debe terminar en @uce.edu.ec", Validador::esCorreoUCEValido);
         Date fechaNacimiento = leerFecha("Ingrese fecha de nacimiento (DD/MM/AAAA): ");
 
-        Cuenta cuenta = new Cuenta(idPersona, nombre, correo, fechaNacimiento);
+        Cuenta cuenta = new Cuenta(nombre, correo, fechaNacimiento);
         System.out.println("\n[✔] ÉXITO: Cuenta instanciada correctamente:\n" + cuenta);
     }
 
@@ -662,10 +615,6 @@ public class MenuConsola {
         }
     }
 
-    // =====================================================
-    // MÉTODOS AUXILIARES DE BÚSQUEDA
-    // =====================================================
-
     private LocalComida buscarLocalPorId(int id) {
         for (LocalComida l : listaLocales) {
             if (l.getIdLocal() == id) return l;
@@ -679,10 +628,6 @@ public class MenuConsola {
         }
         return null;
     }
-
-    // =====================================================
-    // PROCESAMIENTO INTELECTUAL DE FORMATOS DE FECHA
-    // =====================================================
 
     private int leerFechaComoInt8Digitos(String mensaje) {
         while (true) {
@@ -706,10 +651,6 @@ public class MenuConsola {
         String dia = s.substring(6, 8);
         return anio + "/" + mes + "/" + dia;
     }
-
-    // =====================================================
-    // MOTOR ROBUSTO DE ENTRADA (ANTI-CRASH)
-    // =====================================================
 
     private int leerEntero(String mensaje) {
         while (true) {

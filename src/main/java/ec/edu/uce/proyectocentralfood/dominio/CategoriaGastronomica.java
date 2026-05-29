@@ -1,38 +1,33 @@
 package ec.edu.uce.proyectocentralfood.dominio;
-import ec.edu.uce.proyectocentralfood.util.Validador;
+
 public class CategoriaGastronomica {
+
     // Atributos
     private int idCategoria;
     private String nombreCategoria;
     private String descripcion;
 
-    // RELACIONES: Una categoría tiene muchos platos y muchos locales de comida
-    private Plato[] platos;
-    private LocalComida[] locales;
-
-    // Constructor vacío original
+    // CONSTRUCTOR VACÍO (Inicializado)
     public CategoriaGastronomica() {
+        this.idCategoria = 0;
+        this.nombreCategoria = "Sin nombre";
+        this.descripcion = "Sin descripción";
     }
 
-    // Constructor parametrizado inteligente (incluye los atributos originales y las relaciones)
-    public CategoriaGastronomica(int idCategoria, String nombreCategoria, String descripcion, Plato[] platos, LocalComida[] locales) {
+    // CONSTRUCTOR CON PARÁMETROS
+    public CategoriaGastronomica(int idCategoria, String nombreCategoria, String descripcion) {
         setIdCategoria(idCategoria);
         setNombreCategoria(nombreCategoria);
         setDescripcion(descripcion);
-        setPlatos(platos);
-        setLocales(locales);
     }
 
-    public CategoriaGastronomica(int idCategoria, String nombreCategoria, String descripcion) {
-    }
-
-    // Métodos accesores y modificadores booleanos validados
+    // MÉTODOS ACCESORES Y MODIFICADORES (Validaciones de fondo)
     public int getIdCategoria() {
         return idCategoria;
     }
 
     public boolean setIdCategoria(int idCategoria) {
-        if (Validador.esIdCategoriaValido(idCategoria)) {
+        if (idCategoria > 0) {
             this.idCategoria = idCategoria;
             return true;
         }
@@ -44,7 +39,7 @@ public class CategoriaGastronomica {
     }
 
     public boolean setNombreCategoria(String nombreCategoria) {
-        if (Validador.esNombreCategoriaValido(nombreCategoria)) {
+        if (nombreCategoria != null && !nombreCategoria.trim().isEmpty()) {
             this.nombreCategoria = nombreCategoria;
             return true;
         }
@@ -56,46 +51,19 @@ public class CategoriaGastronomica {
     }
 
     public boolean setDescripcion(String descripcion) {
-        if (Validador.esDescripcionCategoriaValida(descripcion)) {
+        if (descripcion != null && !descripcion.trim().isEmpty()) {
             this.descripcion = descripcion;
             return true;
         }
         return false;
     }
 
-    public Plato[] getPlatos() {
-        return platos;
-    }
-
-    public boolean setPlatos(Plato[] platos) {
-        if (platos != null) {
-            this.platos = platos;
-            return true;
-        }
-        return false;
-    }
-
-    public LocalComida[] getLocales() {
-        return locales;
-    }
-
-    public boolean setLocales(LocalComida[] locales) {
-        if (locales != null) {
-            this.locales = locales;
-            return true;
-        }
-        return false;
-    }
-
-    // Método toString() original extendido con las nuevas relaciones
     @Override
     public String toString() {
         return "CategoriaGastronomica [" +
                 "ID: " + idCategoria +
                 " | Nombre: '" + nombreCategoria + '\'' +
                 " | Descripción: '" + descripcion + '\'' +
-                " | Cantidad de Platos: " + (platos != null ? platos.length : 0) +
-                " | Cantidad de Locales: " + (locales != null ? locales.length : 0) +
                 ']';
     }
 }

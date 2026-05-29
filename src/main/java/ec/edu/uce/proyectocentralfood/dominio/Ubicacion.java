@@ -1,7 +1,5 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-
 public class Ubicacion {
 
     private String direccion;
@@ -9,15 +7,17 @@ public class Ubicacion {
     private double longitud;
     private String referenciaTextual;
 
-    // RELACIONES: Se asocia a una Facultad y pertenece a un LocalComida
     private Facultad facultad;
     private LocalComida localComida;
 
-    // CONSTRUCTOR VACÍO
+    // CONSTRUCTOR VACÍO INICIALIZADO
     public Ubicacion() {
+        this.direccion = "Sin dirección";
+        this.latitud = 0.0;
+        this.longitud = 0.0;
+        this.referenciaTextual = "Sin referencia";
     }
 
-    // CONSTRUCTOR CON PARÁMETROS ORIGINALES
     public Ubicacion(String direccion, double latitud, double longitud, String referenciaTextual) {
         setDireccion(direccion);
         setLatitud(latitud);
@@ -25,85 +25,38 @@ public class Ubicacion {
         setReferenciaTextual(referenciaTextual);
     }
 
-    // GETTERS Y SETTERS CON VALIDACIÓN
-
-    public String getDireccion() {
-        return direccion;
-    }
-
+    public String getDireccion() { return direccion; }
     public boolean setDireccion(String direccion) {
-        if (Validador.esDireccionValida(direccion)) {
-            this.direccion = direccion;
-            return true;
-        }
+        if (direccion != null && !direccion.trim().isEmpty()) { this.direccion = direccion; return true; }
         return false;
     }
 
-    public double getLatitud() {
-        return latitud;
-    }
-
+    public double getLatitud() { return latitud; }
     public boolean setLatitud(double latitud) {
-        if (Validador.esLatitudValida(latitud)) {
-            this.latitud = latitud;
-            return true;
-        }
+        if (latitud >= -90 && latitud <= 90) { this.latitud = latitud; return true; }
         return false;
     }
 
-    public double getLongitud() {
-        return longitud;
-    }
-
+    public double getLongitud() { return longitud; }
     public boolean setLongitud(double longitud) {
-        if (Validador.esLongitudValida(longitud)) {
-            this.longitud = longitud;
-            return true;
-        }
+        if (longitud >= -180 && longitud <= 180) { this.longitud = longitud; return true; }
         return false;
     }
 
-    public String getReferenciaTextual() {
-        return referenciaTextual;
-    }
-
+    public String getReferenciaTextual() { return referenciaTextual; }
     public boolean setReferenciaTextual(String referenciaTextual) {
-        if (Validador.esReferenciaTextualValida(referenciaTextual)) {
-            this.referenciaTextual = referenciaTextual;
-            return true;
-        }
+        if (referenciaTextual != null && !referenciaTextual.trim().isEmpty()) { this.referenciaTextual = referenciaTextual; return true; }
         return false;
     }
 
-    // GETTERS Y SETTERS DE LAS RELACIONES
+    public Facultad getFacultad() { return facultad; }
+    public void setFacultad(Facultad facultad) { this.facultad = facultad; }
 
-    public Facultad getFacultad() {
-        return facultad;
-    }
+    public LocalComida getLocalComida() { return localComida; }
+    public void setLocalComida(LocalComida localComida) { this.localComida = localComida; }
 
-    public void setFacultad(Facultad facultad) {
-        this.facultad = facultad;
-    }
-
-    public LocalComida getLocalComida() {
-        return localComida;
-    }
-
-    public void setLocalComida(LocalComida localComida) {
-        this.localComida = localComida;
-    }
-
-    // TOSTRING ACTUALIZADO
     @Override
     public String toString() {
-        String nombreFacultad = (facultad != null) ? facultad.getNombre() : "No asociada a facultad";
-        String nombreLocal = (localComida != null) ? localComida.getNombre() : "No asignado a local";
-        return "Ubicacion [" +
-                "Dirección: '" + direccion + '\'' +
-                " | Coordenadas: (" + latitud + ", " + longitud + ")" +
-                " | Ref: '" + referenciaTextual + '\'' +
-                " | Campus/Facultad: " + nombreFacultad +
-                " | Local: " + nombreLocal +
-                ']';
+        return "Ubicacion [Dirección: '" + direccion + "' | Coordenadas: (" + latitud + ", " + longitud + ")]";
     }
 }

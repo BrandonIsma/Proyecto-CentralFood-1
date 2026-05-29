@@ -1,89 +1,51 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-
 public class Favorito {
 
-    // Los 4 atributos originales estrictos
     private int idFavorito;
-    private int idUsuario;
-    private int idLocal;
     private int fechaAgregado;
+
+    // RELACIÓN DIRECTA AL OBJETO
+    private LocalComida local;
 
     // CONSTRUCTOR VACÍO
     public Favorito() {
+        this.idFavorito = 0;
+        this.fechaAgregado = 0;
+        this.local = new LocalComida(); // Se inicializa para evitar NullPointer
     }
 
     // CONSTRUCTOR CON PARÁMETROS
-    public Favorito(int idFavorito, int idUsuario, int idLocal, int fechaAgregado) {
+    public Favorito(int idFavorito, int fechaAgregado, LocalComida local) {
         setIdFavorito(idFavorito);
-        setIdUsuario(idUsuario);
-        setIdLocal(idLocal);
         setFechaAgregado(fechaAgregado);
+        setLocal(local);
     }
 
-    // GETTERS Y SETTERS CON VALIDACIÓN
-
-    public int getIdFavorito() {
-        return idFavorito;
-    }
-
+    public int getIdFavorito() { return idFavorito; }
     public boolean setIdFavorito(int idFavorito) {
-        // Usa el validador de la sección FAVORITO
-        if (Validador.esIdFavoritoValido(idFavorito)) {
-            this.idFavorito = idFavorito;
-            return true;
-        }
+        if (idFavorito > 0) { this.idFavorito = idFavorito; return true; }
         return false;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public boolean setIdUsuario(int idUsuario) {
-        // Usa el validador de la sección USUARIO FINAL
-        if (Validador.esIdUsuarioValido(idUsuario)) {
-            this.idUsuario = idUsuario;
-            return true;
-        }
-        return false;
-    }
-
-    public int getIdLocal() {
-        return idLocal;
-    }
-
-    public boolean setIdLocal(int idLocal) {
-        // Usa el validador de la sección LOCAL COMIDA
-        if (Validador.esIdLocalValido(idLocal)) {
-            this.idLocal = idLocal;
-            return true;
-        }
-        return false;
-    }
-
-    public int getFechaAgregado() {
-        return fechaAgregado;
-    }
-
+    public int getFechaAgregado() { return fechaAgregado; }
     public boolean setFechaAgregado(int fechaAgregado) {
-        // Usa el validador de la sección FAVORITO (valida las 8 cifras numéricas)
-        if (Validador.esFechaAgregadoValida(fechaAgregado)) {
-            this.fechaAgregado = fechaAgregado;
-            return true;
-        }
+        if (fechaAgregado > 0) { this.fechaAgregado = fechaAgregado; return true; }
         return false;
     }
 
-    // METODO TOSTRING
+    public LocalComida getLocal() { return local; }
+    public void setLocal(LocalComida local) {
+        if (local != null) { this.local = local; }
+    }
+
     @Override
     public String toString() {
+        String nombreLocal = (local != null) ? local.getNombre() : "Ninguno";
         return "Favorito [" +
-                "ID Favorito: " + idFavorito +
-                " | ID Usuario: " + idUsuario +
-                " | ID Local: " + idLocal +
-                " | Fecha Agregado: " + fechaAgregado +
+                "ID: " + idFavorito +
+                " | Local Guardado: " + nombreLocal +
+                " | Fecha: " + fechaAgregado +
                 ']';
     }
 }

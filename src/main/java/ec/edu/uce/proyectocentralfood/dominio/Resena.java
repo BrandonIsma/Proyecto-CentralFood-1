@@ -1,6 +1,5 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
 import java.util.Date;
 
 public class Resena {
@@ -10,15 +9,17 @@ public class Resena {
     private String comentario;
     private Date fechaCreacion;
 
-    // RELACIONES: Es dada por un UsuarioFinal y la recibe un LocalComida
     private UsuarioFinal usuario;
     private LocalComida localComida;
 
-    // CONSTRUCTOR VACÍO
+    // CONSTRUCTOR VACÍO INICIALIZADO
     public Resena() {
+        this.idResena = 0;
+        this.calificacion = 5;
+        this.comentario = "Sin comentario";
+        this.fechaCreacion = new Date();
     }
 
-    // CONSTRUCTOR CON PARÁMETROS ORIGINALES
     public Resena(int idResena, int calificacion, String comentario, Date fechaCreacion) {
         setIdResena(idResena);
         setCalificacion(calificacion);
@@ -26,87 +27,45 @@ public class Resena {
         setFechaCreacion(fechaCreacion);
     }
 
-    // GETTERS Y SETTERS CON VALIDACIÓN
-
-    public int getIdResena() {
-        return idResena;
-    }
-
+    public int getIdResena() { return idResena; }
     public boolean setIdResena(int idResena) {
-        if (Validador.esIdResenaValido(idResena)) {
-            this.idResena = idResena;
-            return true;
-        }
+        if (idResena > 0) { this.idResena = idResena; return true; }
         return false;
     }
 
-    public int getCalificacion() {
-        return calificacion;
-    }
-
+    public int getCalificacion() { return calificacion; }
     public boolean setCalificacion(int calificacion) {
-        if (Validador.esCalificacionValida(calificacion)) {
+        if (calificacion >= 1 && calificacion <= 5) {
             this.calificacion = calificacion;
             return true;
         }
         return false;
     }
 
-    // --- GETTER Y SETTER PARA COMENTARIO ---
-    public String getComentario() {
-        return comentario;
-    }
-
+    public String getComentario() { return comentario; }
     public boolean setComentario(String comentario) {
-        if (Validador.esComentarioResenaValido(comentario)) {
+        if (comentario != null && !comentario.trim().isEmpty()) {
             this.comentario = comentario;
             return true;
         }
         return false;
     }
-    // -----------------------------------------------------
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
+    public Date getFechaCreacion() { return fechaCreacion; }
     public boolean setFechaCreacion(Date fechaCreacion) {
-        if (Validador.esFechaCreacionValida(fechaCreacion)) {
-            this.fechaCreacion = fechaCreacion;
-            return true;
-        }
+        if (fechaCreacion != null) { this.fechaCreacion = fechaCreacion; return true; }
         return false;
     }
 
-    // GETTERS Y SETTERS DE LAS RELACIONES
+    public UsuarioFinal getUsuario() { return usuario; }
+    public void setUsuario(UsuarioFinal usuario) { this.usuario = usuario; }
 
-    public UsuarioFinal getUsuario() {
-        return usuario;
-    }
+    public LocalComida getLocalComida() { return localComida; }
+    public void setLocalComida(LocalComida localComida) { this.localComida = localComida; }
 
-    public void setUsuario(UsuarioFinal usuario) {
-        this.usuario = usuario;
-    }
-
-    public LocalComida getLocalComida() {
-        return localComida;
-    }
-
-    public void setLocalComida(LocalComida localComida) {
-        this.localComida = localComida;
-    }
-
-    // TOSTRING
     @Override
     public String toString() {
-        String nombreUsuario = (usuario != null) ? usuario.getNombre() : "Anónimo";
-        String nombreLocal = (localComida != null) ? localComida.getNombre() : "No asignado";
-        return "Resena [" +
-                "ID Resaña: " + idResena +
-                " | Calificación: " + calificacion + "★" +
-                " | Comentario: '" + comentario + '\'' +
-                " | Usuario Autor: " + nombreUsuario +
-                " | Local Reseñado: " + nombreLocal +
-                ']';
+        String autor = (usuario != null) ? usuario.getNombre() : "Anónimo";
+        return "Resena [ID: " + idResena + " | Calificación: " + calificacion + "★ | Comentario: '" + comentario + "' | Autor: " + autor + "]";
     }
 }

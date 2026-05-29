@@ -1,23 +1,30 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-
 public class CentroComida {
 
-    // Atributo principal
     private String nombre;
+    private String codigoAdministrador;
 
-    // RELACIONES: Un centro de comida administra múltiples elementos del sistema
     private Cuenta[] cuentas;
     private LocalComida[] locales;
     private CategoriaGastronomica[] categorias;
     private Facultad[] facultades;
 
-    // CONSTRUCTOR VACÍO
+    // CONSTRUCTOR VACÍO INICIALIZADO
     public CentroComida() {
+        this.nombre = "Centro Principal";
+        this.codigoAdministrador = "ADM-000";
+        this.cuentas = new Cuenta[0];
+        this.locales = new LocalComida[0];
+        this.categorias = new CategoriaGastronomica[0];
+        this.facultades = new Facultad[0];
     }
 
-    // CONSTRUCTOR CON PARÁMETROS (Inteligente)
+    public CentroComida(String codigoAdministrador) {
+        this();
+        setCodigoAdministrador(codigoAdministrador);
+    }
+
     public CentroComida(String nombre, Cuenta[] cuentas, LocalComida[] locales, CategoriaGastronomica[] categorias, Facultad[] facultades) {
         setNombre(nombre);
         setCuentas(cuentas);
@@ -26,123 +33,51 @@ public class CentroComida {
         setFacultades(facultades);
     }
 
-    public CentroComida(String codigoAdministrador) {
-    }
-
-    // GETTERS Y SETTERS (Booleanos y con validación)
-    public String getNombre() {
-        return nombre;
-    }
-
+    public String getNombre() { return nombre; }
     public boolean setNombre(String nombre) {
-        if (Validador.esNombreValido(nombre)) {
-            this.nombre = nombre;
+        if (nombre != null && !nombre.trim().isEmpty()) { this.nombre = nombre; return true; }
+        return false;
+    }
+
+    public String getCodigoAdministrador() { return codigoAdministrador; }
+    public boolean setCodigoAdministrador(String codigoAdministrador) {
+        if (codigoAdministrador != null && !codigoAdministrador.trim().isEmpty()) {
+            this.codigoAdministrador = codigoAdministrador;
             return true;
         }
         return false;
     }
 
-    public Cuenta[] getCuentas() {
-        return cuentas;
-    }
+    public Cuenta[] getCuentas() { return cuentas; }
+    public void setCuentas(Cuenta[] cuentas) { if (cuentas != null) this.cuentas = cuentas; }
 
-    public boolean setCuentas(Cuenta[] cuentas) {
-        if (cuentas != null) {
-            this.cuentas = cuentas;
-            return true;
-        }
-        return false;
-    }
+    public LocalComida[] getLocales() { return locales; }
+    public void setLocales(LocalComida[] locales) { if (locales != null) this.locales = locales; }
 
-    public LocalComida[] getLocales() {
-        return locales;
-    }
+    public CategoriaGastronomica[] getCategorias() { return categorias; }
+    public void setCategorias(CategoriaGastronomica[] categorias) { if (categorias != null) this.categorias = categorias; }
 
-    public boolean setLocales(LocalComida[] locales) {
-        if (locales != null) {
-            this.locales = locales;
-            return true;
-        }
-        return false;
-    }
+    public Facultad[] getFacultades() { return facultades; }
+    public void setFacultades(Facultad[] facultades) { if (facultades != null) this.facultades = facultades; }
 
-    public CategoriaGastronomica[] getCategorias() {
-        return categorias;
-    }
+    // Métodos operativos conservados
+    public void crearCategoria() {}
+    public void actualizarCategoria() {}
+    public void eliminarCategoria() {}
+    public void crearFacultad() {}
+    public void actualizarFacultad() {}
+    public void eliminarFacultad() {}
+    public void crearLocal() {}
+    public void actualizarLocal() {}
+    public void eliminarLocal() {}
+    public void crearPlato() {}
+    public void actualizarPlato() {}
+    public void eliminarPlato() {}
+    public void moderarResena() {}
+    public void gestionarUsuario() {}
 
-    public boolean setCategorias(CategoriaGastronomica[] categorias) {
-        if (categorias != null) {
-            this.categorias = categorias;
-            return true;
-        }
-        return false;
-    }
-
-    public Facultad[] getFacultades() {
-        return facultades;
-    }
-
-    public boolean setFacultades(Facultad[] facultades) {
-        if (facultades != null) {
-            this.facultades = facultades;
-            return true;
-        }
-        return false;
-    }
-
-    // MÉTODOS ORIGINALES CONSERVADOS (Adaptados al cambio de PuntoReferencia a Facultad)
-
-    public void crearCategoria() {
-    }
-
-    public void actualizarCategoria() {
-    }
-
-    public void eliminarCategoria() {
-    }
-
-    public void crearFacultad() {
-    }
-
-    public void actualizarFacultad() {
-    }
-
-    public void eliminarFacultad() {
-    }
-
-    public void crearLocal() {
-    }
-
-    public void actualizarLocal() {
-    }
-
-    public void eliminarLocal() {
-    }
-
-    public void crearPlato() {
-    }
-
-    public void actualizarPlato() {
-    }
-
-    public void eliminarPlato() {
-    }
-
-    public void moderarResena() {
-    }
-
-    public void gestionarUsuario() {
-    }
-
-    // TOSTRING ACTUALIZADO WITH RESUMEN DE RELACIONES
     @Override
     public String toString() {
-        return "CentroComida [" +
-                "Nombre: '" + nombre + '\'' +
-                " | Cuentas: " + (cuentas != null ? cuentas.length : 0) +
-                " | Locales: " + (locales != null ? locales.length : 0) +
-                " | Categorías: " + (categorias != null ? categorias.length : 0) +
-                " | Facultades: " + (facultades != null ? facultades.length : 0) +
-                ']';
+        return "CentroComida [Admin Código: " + codigoAdministrador + " | Cuentas: " + cuentas.length + " | Locales: " + locales.length + "]";
     }
 }

@@ -8,15 +8,12 @@ import ec.edu.uce.proyectocentralfood.interfaz.MenuConsola;
 public class Main {
 
     public static void main(String[] args) {
-        // Mensajes de inicialización del sistema
-        System.out.println("[i] Iniciando el Sistema Central Food...");
-        System.out.println("[i] Cargando base de datos en memoria y motores de validación...");
 
         try {
-
+            // Instanciamos el menú que ya contiene toda la nueva lógica
             MenuConsola menu = new MenuConsola();
 
-
+            // Iniciamos el ciclo de vida de la aplicación
             menu.iniciar();
 
         } catch (Exception e) {
