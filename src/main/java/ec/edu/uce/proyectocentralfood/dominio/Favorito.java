@@ -5,7 +5,7 @@ public class Favorito {
     private int idFavorito;
     private int fechaAgregado;
 
-    // RELACIÓN DIRECTA AL OBJETO
+
     private LocalComida local;
 
     // CONSTRUCTOR VACÍO
