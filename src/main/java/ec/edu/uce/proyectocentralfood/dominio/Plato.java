@@ -1,44 +1,45 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-
 public class Plato {
 
-    // Los 6 atributos primitivos originales estrictos
     private int idPlato;
     private String nombre;
-    private String categoria;
     private String descripcion;
     private double precio;
     private int fechaActualizacion;
 
-    // ATRIBUTOS DE RELACIÓN (Asociaciones y Estados)
-    private LocalComida localComida;                 // El plato pertenece a un local de comida
-    private CategoriaGastronomica categoriaGastro;   // Está clasificado en una categoría gastronómica
-    private boolean esFavorito;                      // Estado que define si está marcado como favorito
+    // RELACIONES
+    private CategoriaGastronomica categoriaGastro;
+    private boolean esFavorito;
 
     // CONSTRUCTOR VACÍO
     public Plato() {
+        this.idPlato = 0;
+        this.nombre = "Sin nombre";
+        this.descripcion = "Sin descripción";
+        this.precio = 0.0;
+        this.fechaActualizacion = 0;
+        this.categoriaGastro = new CategoriaGastronomica();
+        this.esFavorito = false;
     }
 
-    // CONSTRUCTOR CON PARÁMETROS ORIGINALES
-    public Plato(int idPlato, String nombre, String categoria, String descripcion, double precio, int fechaActualizacion) {
+    // CONSTRUCTOR CON PARÁMETROS
+    public Plato(int idPlato, String nombre, String descripcion, double precio, int fechaActualizacion, CategoriaGastronomica categoriaGastro) {
         setIdPlato(idPlato);
         setNombre(nombre);
-        setCategoria(categoria);
         setDescripcion(descripcion);
         setPrecio(precio);
         setFechaActualizacion(fechaActualizacion);
+        setCategoriaGastro(categoriaGastro);
     }
 
-    // GETTERS Y SETTERS CON VALIDACIÓN (Atributos Primitivos)
-
+    // GETTERS Y SETTERS (Validación de fondo)
     public int getIdPlato() {
         return idPlato;
     }
 
     public boolean setIdPlato(int idPlato) {
-        if (Validador.esIdPlatoValido(idPlato)) {
+        if (idPlato > 0) {
             this.idPlato = idPlato;
             return true;
         }
@@ -50,20 +51,8 @@ public class Plato {
     }
 
     public boolean setNombre(String nombre) {
-        if (Validador.esNombrePlatoValido(nombre)) {
+        if (nombre != null && !nombre.trim().isEmpty()) {
             this.nombre = nombre;
-            return true;
-        }
-        return false;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public boolean setCategoria(String categoria) {
-        if (Validador.esCategoriaPlatoValida(categoria)) {
-            this.categoria = categoria;
             return true;
         }
         return false;
@@ -74,7 +63,7 @@ public class Plato {
     }
 
     public boolean setDescripcion(String descripcion) {
-        if (Validador.esDescripcionPlatoValida(descripcion)) {
+        if (descripcion != null && !descripcion.trim().isEmpty()) {
             this.descripcion = descripcion;
             return true;
         }
@@ -86,7 +75,7 @@ public class Plato {
     }
 
     public boolean setPrecio(double precio) {
-        if (Validador.esPrecioPlatoValido(precio)) {
+        if (precio >= 0) {
             this.precio = precio;
             return true;
         }
@@ -98,21 +87,11 @@ public class Plato {
     }
 
     public boolean setFechaActualizacion(int fechaActualizacion) {
-        if (Validador.esFechaActualizacionValida(fechaActualizacion)) {
+        if (fechaActualizacion > 0) {
             this.fechaActualizacion = fechaActualizacion;
             return true;
         }
         return false;
-    }
-
-    // GETTERS Y SETTERS DE LAS RELACIONES
-
-    public LocalComida getLocalComida() {
-        return localComida;
-    }
-
-    public void setLocalComida(LocalComida localComida) {
-        this.localComida = localComida;
     }
 
     public CategoriaGastronomica getCategoriaGastro() {
@@ -120,7 +99,9 @@ public class Plato {
     }
 
     public void setCategoriaGastro(CategoriaGastronomica categoriaGastro) {
-        this.categoriaGastro = categoriaGastro;
+        if (categoriaGastro != null) {
+            this.categoriaGastro = categoriaGastro;
+        }
     }
 
     public boolean isEsFavorito() {
@@ -131,18 +112,14 @@ public class Plato {
         this.esFavorito = esFavorito;
     }
 
-    // TOSTRING ACTUALIZADO (Muestra los datos y los nombres de los objetos asociados)
     @Override
     public String toString() {
-        String nombreLocal = (localComida != null) ? localComida.getNombre() : "No asignado";
         String nombreCat = (categoriaGastro != null) ? categoriaGastro.getNombreCategoria() : "No asignada";
         return "Plato [" +
                 "ID: " + idPlato +
                 " | Nombre: " + nombre +
                 " | Precio: $" + precio +
-                " | Local: " + nombreLocal +
                 " | Categoría: " + nombreCat +
-                " | ¿Favorito?: " + (esFavorito ? "Sí" : "No") +
                 ']';
     }
 }

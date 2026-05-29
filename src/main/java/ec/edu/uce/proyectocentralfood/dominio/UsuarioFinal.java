@@ -1,115 +1,110 @@
 package ec.edu.uce.proyectocentralfood.dominio;
 
-import ec.edu.uce.proyectocentralfood.util.Validador;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class UsuarioFinal extends Cuenta {
 
     private int idPersona;
 
-    // ATRIBUTOS DE RELACIÓN
-    private List<Favorito> favoritos;    // Guarda sus favoritos
-    private List<Resena> resenas;        // Realiza reseñas
+    // RELACIONES COMO ARREGLOS ESTÁTICOS
+    private Favorito[] favoritos;
+    private Resena[] resenas;
 
-    // CONSTRUCTOR VACÍO
+    // CONSTRUCTOR VACÍO INICIALIZADO
     public UsuarioFinal() {
         super();
-        this.favoritos = new ArrayList<>();
-        this.resenas = new ArrayList<>();
+        this.idPersona = 0;
+        this.favoritos = new Favorito[0];
+        this.resenas = new Resena[0];
     }
 
-    // CONSTRUCTOR CON PARÁMETROS
-    public UsuarioFinal(int idPersona, String nombre, String correo, Date fechaNacimiento) {
-        // Inicializa los atributos de la clase padre (Cuenta)
-        super(nombre, correo, fechaNacimiento);
-
-        // Inicializa las colecciones y el atributo propio
-        this.favoritos = new ArrayList<>();
-        this.resenas = new ArrayList<>();
+    // CONSTRUCTORES PARAMETRIZADOS CORREGIDOS (Evitan objetos fantasmas)
+    public UsuarioFinal(int idPersona, String nombre) {
+        super();
+        setNombre(nombre);
         setIdPersona(idPersona);
+        this.favoritos = new Favorito[0];
+        this.resenas = new Resena[0];
     }
 
-    public UsuarioFinal(int idUsuario, String nombre) {
+    public UsuarioFinal(int idPersona, String nombre, String correo, Date fechaNacimiento) {
+        super(nombre, correo, fechaNacimiento);
+        setIdPersona(idPersona);
+        this.favoritos = new Favorito[0];
+        this.resenas = new Resena[0];
     }
-
-    // GETTERS Y SETTERS CON VALIDACIÓN
 
     public int getIdPersona() {
         return idPersona;
     }
 
     public boolean setIdPersona(int idPersona) {
-        if (Validador.esIdPersonaValido(idPersona)) {
+        if (idPersona > 0) {
             this.idPersona = idPersona;
             return true;
         }
         return false;
     }
 
-    // GETTERS Y SETTERS DE LAS RELACIONES
-
-    public List<Favorito> getFavoritos() {
+    public Favorito[] getFavoritos() {
         return favoritos;
     }
 
-    public void setFavoritos(List<Favorito> favoritos) {
+    public void setFavoritos(Favorito[] favoritos) {
         if (favoritos != null) {
             this.favoritos = favoritos;
         }
     }
 
-    public List<Resena> getResenas() {
+    public Resena[] getResenas() {
         return resenas;
     }
 
-    public void setResenas(List<Resena> resenas) {
+    public void setResenas(Resena[] resenas) {
         if (resenas != null) {
             this.resenas = resenas;
         }
     }
 
-    // MÉTODOS DE COMPORTAMIENTO
-
+    // GESTIÓN DINÁMICA DE ARREGLOS (Reemplazo de List.add y List.removeIf)
     public void agregarAFavoritos(Favorito favorito) {
         if (favorito != null) {
-            this.favoritos.add(favorito);
+            Favorito[] nuevoArreglo = new Favorito[this.favoritos.length + 1];
+            System.arraycopy(this.favoritos, 0, nuevoArreglo, 0, this.favoritos.length);
+            nuevoArreglo[this.favoritos.length] = favorito;
+            this.favoritos = nuevoArreglo;
         }
+    }
+
+    public boolean eliminarFavorito(int idFavorito) {
+        int indice = -1;
+        for (int i = 0; i < favoritos.length; i++) {
+            if (favoritos[i].getIdFavorito() == idFavorito) {
+                indice = i;
+                break;
+            }
+        }
+        if (indice == -1) return false;
+
+        Favorito[] nuevoArreglo = new Favorito[this.favoritos.length - 1];
+        System.arraycopy(this.favoritos, 0, nuevoArreglo, 0, indice);
+        System.arraycopy(this.favoritos, indice + 1, nuevoArreglo, indice, this.favoritos.length - indice - 1);
+        this.favoritos = nuevoArreglo;
+        return true;
     }
 
     public void registrarResena(Resena resena) {
         if (resena != null) {
-            this.resenas.add(resena);
-            resena.setUsuario(this); // Setea de forma bidireccional el autor de la reseña
+            Resena[] nuevoArreglo = new Resena[this.resenas.length + 1];
+            System.arraycopy(this.resenas, 0, nuevoArreglo, 0, this.resenas.length);
+            nuevoArreglo[this.resenas.length] = resena;
+            this.resenas = nuevoArreglo;
+            resena.setUsuario(this);
         }
     }
 
-    // MÉTODO DE COMPORTAMIENTO: Filtrar por Categoría Gastronómica
-    public List<Plato> filtrarPorCategoria(List<Plato> todosLosPlatos, String categoriaObjetivo) {
-        List<Plato> platosFiltrados = new ArrayList<>();
-
-        if (todosLosPlatos == null || categoriaObjetivo == null) {
-            return platosFiltrados;
-        }
-
-        for (Plato plato : todosLosPlatos) {
-            if (plato.getCategoria() != null && plato.getCategoria().equalsIgnoreCase(categoriaObjetivo)) {
-                platosFiltrados.add(plato);
-            }
-        }
-        return platosFiltrados;
-    }
-
-    // TOSTRING ACTUALIZADO
     @Override
     public String toString() {
-        return "UsuarioFinal [" +
-                "ID Persona: " + idPersona +
-                " | Nombre (Heredado): " + getNombre() +
-                " | Correo (Heredado): " + getCorreo() +
-                " | Favoritos guardados: " + favoritos.size() +
-                " | Reseñas hechas: " + resenas.size() +
-                ']';
+        return "UsuarioFinal [ID Persona: " + idPersona + " | Nombre: " + getNombre() + " | Favoritos: " + favoritos.length + " | Reseñas: " + resenas.length + "]";
     }
 }

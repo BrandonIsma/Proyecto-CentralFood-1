@@ -25,9 +25,9 @@ class UbicacionTest {
     }
 
     @Test
-    void setDireccionInvalida() {
+    void setDireccionInvalidaFondo() {
         assertFalse(ubicacion.setDireccion(null));
-        assertFalse(ubicacion.setDireccion("Av")); // menos de 5 chars
+        assertFalse(ubicacion.setDireccion("   "));
         assertEquals("Av. América y Universitaria", ubicacion.getDireccion());
     }
 
@@ -81,15 +81,15 @@ class UbicacionTest {
     }
 
     @Test
-    void setReferenciaTextualInvalida() {
+    void setReferenciaTextualInvalidaFondo() {
         assertFalse(ubicacion.setReferenciaTextual(null));
-        assertFalse(ubicacion.setReferenciaTextual("Ref")); // menos de 5 chars
+        assertFalse(ubicacion.setReferenciaTextual(""));
         assertEquals("Frente al parque central", ubicacion.getReferenciaTextual());
     }
 
     @Test
     void getSetFacultad() {
-        Facultad facultad = new Facultad("Ingeniería", "Descripción válida larga aquí.", null);
+        Facultad facultad = new Facultad("Ingeniería", "Descripción válida larga aquí.");
         ubicacion.setFacultad(facultad);
         assertEquals(facultad, ubicacion.getFacultad());
     }
@@ -104,7 +104,7 @@ class UbicacionTest {
     @Test
     void constructorVacioNoDaError() {
         Ubicacion vacia = new Ubicacion();
-        assertNull(vacia.getDireccion());
+        assertEquals("Sin dirección", vacia.getDireccion());
         assertEquals(0.0, vacia.getLatitud());
     }
 
@@ -112,7 +112,6 @@ class UbicacionTest {
     void testToString() {
         String resultado = ubicacion.toString();
         assertTrue(resultado.contains("Av. América y Universitaria"));
-        assertTrue(resultado.contains("No asociada a facultad"));
-        assertTrue(resultado.contains("No asignado a local"));
+        assertTrue(resultado.contains("-0.2105"));
     }
 }

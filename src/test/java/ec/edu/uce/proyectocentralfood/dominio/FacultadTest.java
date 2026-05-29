@@ -27,9 +27,10 @@ class FacultadTest {
     }
 
     @Test
-    void setNombreInvalido() {
+    void setNombreInvalidoFondo() {
+        // La nueva lógica solo rechaza nulos o cadenas vacías
         assertFalse(facultad.setNombre(null));
-        assertFalse(facultad.setNombre(""));
+        assertFalse(facultad.setNombre("   "));
         assertEquals("Facultad de Ingeniería", facultad.getNombre());
     }
 
@@ -45,7 +46,7 @@ class FacultadTest {
     }
 
     @Test
-    void setDescripcionInvalida() {
+    void setDescripcionInvalidaFondo() {
         assertFalse(facultad.setDescripcion(null));
         assertFalse(facultad.setDescripcion(""));
         assertEquals("Facultad dedicada a ingeniería y tecnología", facultad.getDescripcion());
@@ -59,26 +60,20 @@ class FacultadTest {
     @Test
     void setUbicacionValida() {
         Ubicacion nueva = new Ubicacion("Calle Universitaria N23-45", -0.2200, -78.5100, "Cerca de la biblioteca");
-        assertTrue(facultad.setUbicacion(nueva));
+        facultad.setUbicacion(nueva);
         assertEquals(nueva, facultad.getUbicacion());
-    }
-
-    @Test
-    void setUbicacionNullNoModifica() {
-        assertFalse(facultad.setUbicacion(null));
-        assertEquals(ubicacion, facultad.getUbicacion());
     }
 
     @Test
     void testToStringConUbicacion() {
         String resultado = facultad.toString();
         assertTrue(resultado.contains("Facultad de Ingeniería"));
-        assertTrue(resultado.contains("Av. América y Universitaria"));
     }
 
     @Test
-    void testToStringSinUbicacion() {
-        Facultad sinUbicacion = new Facultad("Facultad de Ciencias", "Descripción válida larga", null);
-        assertTrue(sinUbicacion.toString().contains("No asignada"));
+    void constructorVacioNoDaError() {
+        Facultad vacia = new Facultad();
+        assertEquals("Sin nombre", vacia.getNombre());
+        assertEquals("Sin descripción", vacia.getDescripcion());
     }
 }

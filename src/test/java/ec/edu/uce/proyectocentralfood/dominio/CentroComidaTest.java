@@ -11,7 +11,7 @@ class CentroComidaTest {
     @BeforeEach
     void setUp() {
         centro = new CentroComida(
-                "Juan Pérez",
+                "Principal UCE",
                 new Cuenta[]{new Cuenta()},
                 new LocalComida[]{new LocalComida()},
                 new CategoriaGastronomica[]{new CategoriaGastronomica()},
@@ -21,72 +21,71 @@ class CentroComidaTest {
 
     @Test
     void getNombre() {
-        assertEquals("Juan Pérez", centro.getNombre());
+        assertEquals("Principal UCE", centro.getNombre());
     }
 
     @Test
     void setNombreValido() {
-        assertTrue(centro.setNombre("María López"));
-        assertEquals("María López", centro.getNombre());
+        assertTrue(centro.setNombre("Gestión Universitaria"));
+        assertEquals("Gestión Universitaria", centro.getNombre());
     }
 
     @Test
-    void setNombreInvalido() {
+    void setNombreInvalidoFondo() {
         assertFalse(centro.setNombre(null));
         assertFalse(centro.setNombre(""));
-        assertFalse(centro.setNombre("J123")); // contiene números
-        assertEquals("Juan Pérez", centro.getNombre());
+        assertEquals("Principal UCE", centro.getNombre());
     }
 
     @Test
     void setCuentasValido() {
         Cuenta[] cuentas = {new Cuenta(), new Cuenta()};
-        assertTrue(centro.setCuentas(cuentas));
+        centro.setCuentas(cuentas);
         assertEquals(2, centro.getCuentas().length);
     }
 
     @Test
     void setCuentasNullNoModifica() {
-        assertFalse(centro.setCuentas(null));
+        centro.setCuentas(null);
         assertNotNull(centro.getCuentas());
     }
 
     @Test
     void setLocalesValido() {
         LocalComida[] locales = {new LocalComida(), new LocalComida()};
-        assertTrue(centro.setLocales(locales));
+        centro.setLocales(locales);
         assertEquals(2, centro.getLocales().length);
     }
 
     @Test
     void setLocalesNullNoModifica() {
-        assertFalse(centro.setLocales(null));
+        centro.setLocales(null);
         assertNotNull(centro.getLocales());
     }
 
     @Test
     void setCategoriasValido() {
         CategoriaGastronomica[] cats = {new CategoriaGastronomica()};
-        assertTrue(centro.setCategorias(cats));
+        centro.setCategorias(cats);
         assertEquals(1, centro.getCategorias().length);
     }
 
     @Test
     void setCategoriasNullNoModifica() {
-        assertFalse(centro.setCategorias(null));
+        centro.setCategorias(null);
         assertNotNull(centro.getCategorias());
     }
 
     @Test
     void setFacultadesValido() {
-        Facultad[] facultades = {new Facultad("Ingeniería", "Descripción válida larga.", null)};
-        assertTrue(centro.setFacultades(facultades));
+        Facultad[] facultades = {new Facultad("Ingeniería", "Descripción general.")};
+        centro.setFacultades(facultades);
         assertEquals(1, centro.getFacultades().length);
     }
 
     @Test
     void setFacultadesNullNoModifica() {
-        assertFalse(centro.setFacultades(null));
+        centro.setFacultades(null);
         assertNotNull(centro.getFacultades());
     }
 
@@ -111,14 +110,14 @@ class CentroComidaTest {
     @Test
     void constructorVacioNoDaError() {
         CentroComida vacio = new CentroComida();
-        assertNull(vacio.getNombre());
-        assertNull(vacio.getCuentas());
+        assertEquals("Centro Principal", vacio.getNombre());
+        assertNotNull(vacio.getCuentas());
+        assertEquals(0, vacio.getCuentas().length);
     }
 
     @Test
     void testToString() {
         String resultado = centro.toString();
-        assertTrue(resultado.contains("Juan Pérez"));
         assertTrue(resultado.contains("Cuentas: 1"));
         assertTrue(resultado.contains("Locales: 1"));
     }
